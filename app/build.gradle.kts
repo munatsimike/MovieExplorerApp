@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.movieexplorerapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -40,9 +40,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -52,7 +53,9 @@ android {
 }
 
 dependencies {
-    val  hiltVersion = "2.48"
+    val hiltVersion = "2.48"
+    val retrofitVersion = "2.9.0"
+    val okhttp3Version = "5.0.0-alpha.11"
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -71,7 +74,43 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
 //Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:$hiltVersion")
-    kapt ("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    // Hilt for Android
+
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
+    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+
+    //okhttp3
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3Version")
+
+    // serialize
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+
+    // gson converter
+    implementation("com.google.code.gson:gson:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    // google truth
+    testImplementation("com.google.truth:truth:1.1.2")
+    androidTestImplementation("com.google.truth:truth:1.1.2")
+
+    // kotlinx.coroutines.test for testing with coroutines
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // hilt For local unit tests
+    testImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
+    testAnnotationProcessor("com.google.dagger:hilt-compiler:$hiltVersion")
+
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:$okhttp3Version")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
+
 }
