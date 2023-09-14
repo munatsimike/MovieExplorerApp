@@ -113,4 +113,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
 
+    // Test implementation for MockK and JUnit
+    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("junit:junit:4.13.2")
 }

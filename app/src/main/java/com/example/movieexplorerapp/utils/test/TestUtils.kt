@@ -206,6 +206,5 @@ object TestUtils {
         ],
          "total_pages": 91,
          "total_results": 1801
-       
        }"""
 }
