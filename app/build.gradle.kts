@@ -3,11 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id ("kotlinx-serialization")
+    id ("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.example.movieexplorerapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.movieexplorerapp"
@@ -56,9 +58,11 @@ dependencies {
     val hiltVersion = "2.48"
     val retrofitVersion = "2.9.0"
     val okhttp3Version = "5.0.0-alpha.11"
+    val roomVersion = "2.5.2"
+    val archCoreVersion = "2.2.0"
 
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
@@ -95,7 +99,7 @@ dependencies {
 
     // gson converter
     implementation("com.google.code.gson:gson:2.9.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     // google truth
     testImplementation("com.google.truth:truth:1.1.2")
@@ -116,4 +120,18 @@ dependencies {
     // Test implementation for MockK and JUnit
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("junit:junit:4.13.2")
+
+    // Room
+    implementation ("androidx.room:room-runtime:$roomVersion")
+    ksp ("androidx.room:room-compiler:$roomVersion")
+    implementation ("androidx.room:room-paging:$roomVersion")
+    implementation ("androidx.room:room-ktx:$roomVersion")
+
+    // AndroidX Core Testing for LiveData testing
+    testImplementation ("androidx.arch.core:core-testing:$archCoreVersion")
+    androidTestImplementation ("androidx.arch.core:core-testing:$archCoreVersion")
+
+    // paging
+    implementation ("androidx.paging:paging-compose:3.2.1")
+
 }

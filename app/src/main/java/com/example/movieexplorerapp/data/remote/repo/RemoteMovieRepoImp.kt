@@ -17,13 +17,6 @@ class RemoteMovieRepoImp @Inject constructor(
     private val movieService: MovieService, private val localMovieRepoImp: MovieRepository
 ) : RemoteMovieRepository {
 
-    suspend fun refreshMoviesFromAPI() {
-        saveAllMoviesToLocalDB(getAllMoviesFromAPI())
-        saveNowPlayingMoviesToLocalDB(getNowPlayingMoviesFromAPI())
-        saveUpComingMoviesToLocalDB(getUpComingMoviesFromAPI())
-        savePopularMoviesToLocalDB(getPopularMoviesFromAPI())
-        saveTopRatedMoviesToLocalDB(getTopRatedMoviesFromAPI())
-    }
 
     override suspend fun getAllMoviesFromAPI(): DiscoverMovieAPIResponseImp {
         return executeAPICall { movieService.exploreAllMovies() }
@@ -43,26 +36,6 @@ class RemoteMovieRepoImp @Inject constructor(
 
     override suspend fun getTopRatedMoviesFromAPI(): TopRatedMovieAPIResponseImp {
         return executeAPICall { movieService.getTopRatedMovies() }
-    }
-
-    override suspend fun saveAllMoviesToLocalDB(movies: DiscoverMovieAPIResponseImp) {
-        localMovieRepoImp.saveAllMoviesToLocalDB(movies)
-    }
-
-    override suspend fun saveNowPlayingMoviesToLocalDB(nowPlayingImp: NowPlayingMovieAPIResponseImp) {
-        localMovieRepoImp.saveNowPlayingMoviesToLocalDB(nowPlayingImp)
-    }
-
-    override suspend fun saveUpComingMoviesToLocalDB(upcomingImp: UpcomingMovieAPIResponseImp) {
-        localMovieRepoImp.saveUpComingMoviesToLocalDB(upcomingImp)
-    }
-
-    override suspend fun savePopularMoviesToLocalDB(popularImp: PopularMovieAPIResponseImp) {
-        localMovieRepoImp.savePopularMoviesToLocalDB(popularImp)
-    }
-
-    override suspend fun saveTopRatedMoviesToLocalDB(topRatedImp: TopRatedMovieAPIResponseImp) {
-        localMovieRepoImp.saveTopRatedMoviesToLocalDB(topRatedImp)
     }
 
     suspend fun <T : BaseMovieApiResponse> executeAPICall(apiCall: suspend () -> Response<T>): T {

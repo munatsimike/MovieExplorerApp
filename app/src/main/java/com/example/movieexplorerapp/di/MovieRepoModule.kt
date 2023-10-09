@@ -1,6 +1,6 @@
 package com.example.movieexplorerapp.di
 
-import com.example.movieexplorerapp.data.local.LocalMovieRepoImp
+import com.example.movieexplorerapp.data.local.repository.LocalMovieRepoImp
 import com.example.movieexplorerapp.data.remote.api.MovieService
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
 import dagger.Module

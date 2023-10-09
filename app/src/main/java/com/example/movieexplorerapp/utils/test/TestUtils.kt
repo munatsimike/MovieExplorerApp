@@ -1,5 +1,7 @@
 package com.example.movieexplorerapp.utils.test
 
+import com.example.movieexplorerapp.domain.model.Movie
+
 object TestUtils {
     fun sampleMovieJsonApiResponse(): String =
        """ {
@@ -92,7 +94,6 @@ object TestUtils {
             "total_results":798873
         }
         """
-
 
     fun sampleMovieJsonResponseWithDateRange(): String =
         """{
@@ -207,4 +208,38 @@ object TestUtils {
          "total_pages": 91,
          "total_results": 1801
        }"""
+
+    fun listOfMovies() = listOf(
+        Movie(
+            adult = false,
+            backdropPath = "/8pjWz2lt29KyVGoq1mXYu6Br7dE.jpg",
+            genreIds = listOf(28, 878, 27),
+            id = 615656,
+            originalLanguage = "en",
+            originalTitle = "Meg 2: The Trench",
+            overview = "An exploratory dive into the deepest depths of the ocean of a daring research team spirals into chaos when a malevolent mining operation threatens their mission and forces them into a high-stakes battle for survival.",
+            popularity = 3784.306,
+            posterPath = "/drCySAAAvegq1vQRGRqPKN9f00w.jpg",
+            releaseDate = "2023-08-02",
+            title = "Meg 2: The Trench",
+            video = false,
+            voteAverage = 7.0,
+            voteCount = 1523
+        ), Movie(
+            adult = false,
+            backdropPath = "/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg",
+            genreIds = listOf(35, 12, 14),
+            id = 346698,
+            originalLanguage = "en",
+            originalTitle = "Barbie",
+            overview = "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+            popularity = 3176.933,
+            posterPath = "/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+            releaseDate = "2023-07-19",
+            title = "Barbie",
+            video = false,
+            voteAverage = 7.4,
+            voteCount = 3954
+        )
+    )
 }
