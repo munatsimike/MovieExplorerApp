@@ -6,21 +6,25 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.movieexplorerapp.data.local.database.DatabaseTable
-import com.example.movieexplorerapp.data.local.database.MovieLocalDatabase
+import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
-import com.example.movieexplorerapp.domain.model.Movie
+import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class MyRemoteMediator @Inject constructor(
-    private val remoteRepo: RemoteMovieRepository,
     private val localMovieRepo: LocalMovieRepository,
-    private val  database: MovieLocalDatabase
-) : RemoteMediator<Int, Movie>() {
+) : RemoteMediator<Int, DiscoverMovieAPIResponseImp>() {
 
+    @Inject
+    lateinit var database: LocalMovieDatabase
+
+    @Inject
+    lateinit var remoteRepo: RemoteMovieRepository
+    @OptIn(ExperimentalPagingApi::class)
     override suspend fun load(
-        loadType: LoadType, state: PagingState<Int, Movie>
+        loadType: LoadType, state: PagingState<Int, DiscoverMovieAPIResponseImp>
     ): MediatorResult {
         try {
             val page = when (loadType) {
@@ -40,7 +44,7 @@ class MyRemoteMediator @Inject constructor(
                         1
                     } else {
                         // Load the next page
-                        lastItem.id + 1
+                        lastItem.page + 1
                     }
                 }
             }
@@ -57,7 +61,7 @@ class MyRemoteMediator @Inject constructor(
                 }
             }
 
-            return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages )
+            return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
         }

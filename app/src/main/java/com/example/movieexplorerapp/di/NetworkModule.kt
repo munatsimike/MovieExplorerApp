@@ -24,7 +24,8 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(apiKey: String): OkHttpClient =
-        OkHttpClient().newBuilder().addInterceptor(ApiKeyInterceptor(apiKey)).also { client ->
+        OkHttpClient().newBuilder()
+            .addInterceptor(ApiKeyInterceptor(apiKey)).also { client ->
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()
                     logger.setLevel(HttpLoggingInterceptor.Level.BODY)

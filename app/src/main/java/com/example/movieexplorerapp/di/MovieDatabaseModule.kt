@@ -3,8 +3,8 @@ package com.example.movieexplorerapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.movieexplorerapp.data.local.database.DB_NAME
-import com.example.movieexplorerapp.data.local.database.MovieDao
-import com.example.movieexplorerapp.data.local.database.MovieLocalDatabase
+import com.example.movieexplorerapp.data.local.dao.MovieDao
+import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,10 +18,10 @@ object MovieDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideMovieDatabase(@ApplicationContext context: Context): MovieLocalDatabase =
-        Room.databaseBuilder(context = context, MovieLocalDatabase::class.java, DB_NAME).build()
+    fun provideMovieDatabase(@ApplicationContext context: Context): LocalMovieDatabase =
+        Room.databaseBuilder(context = context, LocalMovieDatabase::class.java, DB_NAME).build()
 
     @Singleton
     @Provides
-    fun provideMovieDao(database: MovieLocalDatabase): MovieDao = database.movieDao
+    fun provideMovieDao(database: LocalMovieDatabase): MovieDao = database.movieDao
 }
