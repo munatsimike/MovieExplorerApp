@@ -13,6 +13,11 @@ import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+ * Implements the RemoteMovieRepository interface. This class takes two arguments: MovieService and LocalMovieRepository,
+ * which are injected by Hilt. Each function in this class is a suspending function that fetches a different type of movie data object.
+ * Additionally, the executeAPICall function is used internally to handle exceptions specific to API calls, ensuring the app does not crash.
+ */
 class RemoteMovieRepoImp @Inject constructor(
     private val movieService: MovieService, private val localMovieRepoImp: MovieRepository
 ) : RemoteMovieRepository {
@@ -44,9 +49,8 @@ class RemoteMovieRepoImp @Inject constructor(
             val response = apiCall.invoke()
             if (response.isSuccessful) {
                 response.body()
-                    ?: throw MyException.EmptyAPIResponseBodyException("Response body is null or empty")
-            }
-            else {
+                    ?: throw MyException.EmptyBodyException("Response body is null or empty")
+            } else {
                 // handle http response exceptions
                 val errorMsg = response.errorBody()?.string() ?: unknownError
                 throw MyException.HttpException(response.code(), errorMsg)

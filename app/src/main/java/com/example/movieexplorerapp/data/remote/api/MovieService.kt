@@ -8,6 +8,11 @@ import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
 import retrofit2.Response
 import retrofit2.http.GET
 
+/**
+ * The service is responsible for making HTTP requests to the remote server.
+ *The server response is a JSON object, which will be converted by retrofit to a Kotlin object
+ * The response object contains a list of movies  of various movies and other attributes
+ */
 interface MovieService {
     @GET("discover/movie")
     suspend fun exploreAllMovies(): Response<DiscoverMovieAPIResponseImp>

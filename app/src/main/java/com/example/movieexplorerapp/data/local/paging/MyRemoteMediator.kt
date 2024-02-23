@@ -3,7 +3,6 @@ package com.example.movieexplorerapp.data.local.paging
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
-import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.movieexplorerapp.data.local.database.DatabaseTable
 import com.example.movieexplorerapp.data.local.database.MovieLocalDatabase
@@ -12,13 +11,13 @@ import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
 import com.example.movieexplorerapp.domain.model.Movie
 import javax.inject.Inject
 
-@OptIn(ExperimentalPagingApi::class)
 class MyRemoteMediator @Inject constructor(
     private val remoteRepo: RemoteMovieRepository,
     private val localMovieRepo: LocalMovieRepository,
-    private val  database: MovieLocalDatabase
-) : RemoteMediator<Int, Movie>() {
+    private val database: MovieLocalDatabase
+) : BaseRemoteMediator(remoteRepo, localMovieRepo, database) {
 
+    @OptIn(ExperimentalPagingApi::class)
     override suspend fun load(
         loadType: LoadType, state: PagingState<Int, Movie>
     ): MediatorResult {
@@ -57,7 +56,7 @@ class MyRemoteMediator @Inject constructor(
                 }
             }
 
-            return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages )
+            return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
         }

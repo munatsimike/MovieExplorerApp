@@ -3,7 +3,7 @@ package com.example.movieexplorerapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.movieexplorerapp.data.local.database.DB_NAME
-import com.example.movieexplorerapp.data.local.database.MovieDao
+import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.data.local.database.MovieLocalDatabase
 import dagger.Module
 import dagger.Provides

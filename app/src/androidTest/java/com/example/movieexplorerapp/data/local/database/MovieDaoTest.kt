@@ -2,6 +2,7 @@ package com.example.movieexplorerapp.data.local.database
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
+import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
 import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
 import com.example.movieexplorerapp.domain.model.Movie

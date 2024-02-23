@@ -22,6 +22,12 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named
 
+/**
+ * The class tests various methods in the movieService class. Hilt is used to inject dependencies.
+ * To isolate the moviesService from accessing the actual server the class uses a mockWebserver.
+ * The httpResponse function contains the mockWebserver. It mimics the actual server response, it takes a request and json movie data sample and provides are response
+ * ValidateAPi response checks if the server response is what is expected
+ */
 @HiltAndroidTest
 class MovieServiceTest {
     @get:Rule
@@ -84,8 +90,11 @@ class MovieServiceTest {
         validateApiResponse(response, 4)
     }
 
-
-    private fun <T : BaseMovieApiResponse> validateApiResponse(response: Response<T>, listSize: Int) {
+    // checks is the server response is what is expected
+    private fun <T : BaseMovieApiResponse> validateApiResponse(
+        response: Response<T>,
+        listSize: Int
+    ) {
         assertThat(response.isSuccessful).isTrue()
         assertThat(response.body()).isNotNull()
 
@@ -93,6 +102,12 @@ class MovieServiceTest {
         assertThat(response.body()?.results?.size).isEqualTo(listSize)
     }
 
+    /**
+     * Contains the logic to mock server responses using the provided mockWebServer.
+     * This function takes a JSON body representing the server's response and a suspend function representing an HTTP call.
+     * It enqueues a mock response with the given JSON body into the mockWebServer and executes the HTTP call.
+     * Returns the response received from the mock server.
+     */
     private fun <T : BaseMovieApiResponse> httpResponse(
         jsonBody: String, httpCall: suspend () -> Response<T>
     ): Response<T> {

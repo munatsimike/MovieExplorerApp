@@ -7,6 +7,10 @@ import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
 import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
 import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
 
+/**
+ * The remote repository defines asynchronous methods for fetching movie data from the server
+ * using Retrofit service. Each method corresponds to a specific type of movie data response.
+ */
 interface RemoteMovieRepository : MovieRepository {
     suspend fun getAllMoviesFromAPI(): DiscoverMovieAPIResponseImp
     suspend fun getNowPlayingMoviesFromAPI(): NowPlayingMovieAPIResponseImp
