@@ -1,11 +1,11 @@
 package com.example.movieexplorerapp.data.remote.api
 
-import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.remote.dto.DiscoverMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.NowPlayingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.PopularMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.TopRatedMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.UpcomingMovieAPIResponseImp
 import com.example.movieexplorerapp.utils.test.TestUtils.sampleMovieJsonApiResponse
 import com.example.movieexplorerapp.utils.test.TestUtils.sampleMovieJsonResponseWithDateRange
 import com.google.common.truth.Truth.assertThat

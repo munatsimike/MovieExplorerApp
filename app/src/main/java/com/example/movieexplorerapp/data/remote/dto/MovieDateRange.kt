@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.domain.model
+package com.example.movieexplorerapp.data.remote.dto
 
 import kotlinx.serialization.Serializable
 

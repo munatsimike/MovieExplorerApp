@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
+import com.example.movieexplorerapp.data.local.model.MovieEntity
 import com.example.movieexplorerapp.ui.theme.MovieExplorerAppTheme
 import com.example.movieexplorerapp.ui.viewModel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,13 +50,12 @@ fun MainScreen(movieViewModel: MovieViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun DiscoverMovie(movies: LazyPagingItems<DiscoverMovieAPIResponseImp>) {
+fun DiscoverMovie(movies: LazyPagingItems<MovieEntity>) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(movies.itemSnapshotList.items) { discoverMovie ->
-            for (movie in discoverMovie.results) {
+        items(movies.itemSnapshotList) { movie ->
+            if (movie != null) {
                 Text(text = movie.title)
             }
         }

@@ -1,12 +1,12 @@
 package com.example.movieexplorerapp.data.remote.repo
 
 import com.example.movieexplorerapp.data.remote.api.MovieService
-import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.remote.dto.DiscoverMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.NowPlayingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.PopularMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.TopRatedMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.UpcomingMovieAPIResponseImp
 import com.example.movieexplorerapp.utils.MyException
 import retrofit2.Response
 import java.io.IOException

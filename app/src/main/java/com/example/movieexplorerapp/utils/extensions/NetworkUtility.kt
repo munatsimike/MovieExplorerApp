@@ -1,6 +1,6 @@
 package com.example.movieexplorerapp.utils.extensions
 
-import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
