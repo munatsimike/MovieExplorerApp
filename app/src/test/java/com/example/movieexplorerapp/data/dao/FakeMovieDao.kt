@@ -13,6 +13,7 @@ import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
 
 class FakeMovieDao : BaseMovieDao {
 
+<<<<<<< HEAD
     private val movies = mutableListOf<BaseMovieApiResponse>()
     override suspend fun insertDiscover(discoverApiResponse: DiscoverMovieAPIResponseImp) {
         movies.add(discoverApiResponse)
@@ -66,6 +67,40 @@ class FakeMovieDao : BaseMovieDao {
                     val typedMovies: List<T> = movies as List<T>
                     LoadResult.Page(
                         data = typedMovies,
+=======
+    private val allMovies = mutableListOf<BaseMovieApiResponse>()
+    override suspend fun insertDiscover(discoverApiResponse: DiscoverMovieAPIResponseImp) {
+        allMovies.add(discoverApiResponse)
+    }
+
+    override suspend fun insertNowPlaying(nowPlaying: NowPlayingMovieAPIResponseImp) {
+        allMovies.add(nowPlaying)
+    }
+
+    override suspend fun insertPopular(popular: PopularMovieAPIResponseImp) {
+        allMovies.add(popular)
+    }
+
+    override suspend fun insertTopRated(topRated: TopRatedMovieAPIResponseImp) {
+        allMovies.add(topRated)
+    }
+
+    override suspend fun insertUpcoming(upcoming: UpcomingMovieAPIResponseImp) {
+        allMovies.add(upcoming)
+    }
+
+    override fun fetchDiscover(): PagingSource<Int, DiscoverMovieAPIResponseImp> {
+        return object : PagingSource<Int, DiscoverMovieAPIResponseImp>() {
+            override fun getRefreshKey(state: PagingState<Int, DiscoverMovieAPIResponseImp>): Int? {
+                return state.anchorPosition
+            }
+
+            override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DiscoverMovieAPIResponseImp> {
+                return try {
+
+                    LoadResult.Page(
+                        data = allMovies.filterIsInstance<DiscoverMovieAPIResponseImp>(),
+>>>>>>> 37dcae5b8d5ecc014a17fffae75ed9b91a84b988
                         prevKey = 1,
                         nextKey = null
                     )
@@ -76,4 +111,29 @@ class FakeMovieDao : BaseMovieDao {
             }
         }
     }
+<<<<<<< HEAD
+=======
+
+    override fun fetchNowPlaying(): PagingSource<Int, NowPlayingMovieAPIResponseImp> {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchPopular(): PagingSource<Int, PopularMovieAPIResponseImp> {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchTopRated(): PagingSource<Int, TopRatedMovieAPIResponseImp> {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchUpcoming(): PagingSource<Int, UpcomingMovieAPIResponseImp> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun clearTable(tableName: DatabaseTable) {
+
+
+
+    }
+>>>>>>> 37dcae5b8d5ecc014a17fffae75ed9b91a84b988
 }

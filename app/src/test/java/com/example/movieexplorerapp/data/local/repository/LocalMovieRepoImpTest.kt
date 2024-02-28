@@ -1,6 +1,5 @@
 package com.example.movieexplorerapp.data.local.repository
 
-import com.example.movieexplorerapp.data.dao.FakeMovieDao
 import com.example.movieexplorerapp.data.local.database.DatabaseTable
 import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
 import com.google.common.truth.Truth.assertThat

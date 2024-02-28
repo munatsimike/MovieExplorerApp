@@ -18,6 +18,7 @@ class MyRemoteMediator @Inject constructor(
     private val database: LocalMovieDatabase,
     private val remoteRepo: RemoteMovieRepository
 ) : RemoteMediator<Int, DiscoverMovieAPIResponseImp>() {
+
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun load(
         loadType: LoadType, state: PagingState<Int, DiscoverMovieAPIResponseImp>

@@ -54,6 +54,7 @@ class LocalMovieRepoImp @Inject constructor(
             remoteMediator = MyRemoteMediator(this, database, remoteMovieRepoImp),
             pagingSourceFactory = { movieDao.fetchDiscover() }
         ).flow
+
     }
 
     override fun fetchNowPlaying(): Flow<PagingData<NowPlayingMovieAPIResponseImp>> {
