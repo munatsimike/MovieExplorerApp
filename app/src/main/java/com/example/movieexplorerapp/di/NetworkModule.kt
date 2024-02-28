@@ -3,7 +3,7 @@ package com.example.movieexplorerapp.di
 import com.example.movieexplorerapp.BuildConfig
 import com.example.movieexplorerapp.data.remote.api.ApiKeyInterceptor
 import com.example.movieexplorerapp.data.remote.api.MovieService
-import com.example.movieexplorerapp.utils.constants.Constants.BASE_URL
+import com.example.movieexplorerapp.data.remote.api.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -23,9 +23,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(apiKey: String): OkHttpClient =
+    fun provideOkHttpClient(): OkHttpClient =
         OkHttpClient().newBuilder()
-            .addInterceptor(ApiKeyInterceptor(apiKey)).also { client ->
+            .addInterceptor(ApiKeyInterceptor("2b36d6fc58fa055e7f5ca4dc10684209")).also { client ->
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()
                     logger.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -45,6 +45,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMovieService(retrofit: Retrofit): MovieService =
-        retrofit.create(MovieService::class.java)
+    fun provideMovieService(retrofit: Retrofit): MovieService {
+        return retrofit.create(MovieService::class.java)
+    }
+
 }

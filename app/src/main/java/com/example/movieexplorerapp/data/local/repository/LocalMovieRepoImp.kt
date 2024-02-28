@@ -6,9 +6,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
 import com.example.movieexplorerapp.data.local.database.DatabaseTable
+import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.local.paging.MyRemoteMediator
+import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
 import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.Movie
 import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
 import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
 import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
@@ -23,6 +24,8 @@ import javax.inject.Inject
  */
 class LocalMovieRepoImp @Inject constructor(
     private val movieDao: BaseMovieDao,
+    private val remoteMovieRepoImp: RemoteMovieRepoImp,
+    private val database: LocalMovieDatabase
 ) : LocalMovieRepository {
     override suspend fun insertDiscover(discoverApiResponse: DiscoverMovieAPIResponseImp) {
         movieDao.insertDiscover(discoverApiResponse)
@@ -47,11 +50,9 @@ class LocalMovieRepoImp @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override fun fetchDiscover(): Flow<PagingData<DiscoverMovieAPIResponseImp>> {
         return Pager(
-            config = PagingConfig(pageSize = 20),
-            remoteMediator = MyRemoteMediator(this),
-            pagingSourceFactory = { movieDao.fetchDiscover()
-
-            }
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = MyRemoteMediator(this, database, remoteMovieRepoImp),
+            pagingSourceFactory = { movieDao.fetchDiscover() }
         ).flow
     }
 

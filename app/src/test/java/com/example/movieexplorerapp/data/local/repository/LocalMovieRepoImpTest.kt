@@ -1,17 +1,9 @@
 package com.example.movieexplorerapp.data.local.repository
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.paging.flatMap
-import androidx.paging.map
 import com.example.movieexplorerapp.data.dao.FakeMovieDao
 import com.example.movieexplorerapp.data.local.database.DatabaseTable
 import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.Movie
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -22,7 +14,7 @@ class LocalMovieRepoImpTest {
 
     @Before
     fun setup() {
-        localMovieRepoImp = LocalMovieRepoImp(movieDao = FakeMovieDao())
+      // localMovieRepoImp = LocalMovieRepoImp(movieDao = FakeMovieDao())
         runBlocking {
             localMovieRepoImp.clearTable(DatabaseTable.DISCOVER)
         }

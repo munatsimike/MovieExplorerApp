@@ -2,8 +2,9 @@ package com.example.movieexplorerapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.movieexplorerapp.data.local.database.DB_NAME
+import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
 import com.example.movieexplorerapp.data.local.dao.MovieDao
+import com.example.movieexplorerapp.data.local.database.DB_NAME
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import dagger.Module
 import dagger.Provides
@@ -15,7 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object MovieDatabaseModule {
-
     @Singleton
     @Provides
     fun provideMovieDatabase(@ApplicationContext context: Context): LocalMovieDatabase =
@@ -24,4 +24,8 @@ object MovieDatabaseModule {
     @Singleton
     @Provides
     fun provideMovieDao(database: LocalMovieDatabase): MovieDao = database.movieDao
+
+    @Singleton
+    @Provides
+    fun provideBaseMovieDao(movieDao: MovieDao): BaseMovieDao = movieDao
 }

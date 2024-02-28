@@ -3,6 +3,7 @@ package com.example.movieexplorerapp.domain.model
 import com.squareup.moshi.Json
 import kotlinx.serialization.Serializable
 
+
 @Serializable
 data class Movie(
     val adult: Boolean,

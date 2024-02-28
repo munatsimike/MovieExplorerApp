@@ -1,6 +1,5 @@
 package com.example.movieexplorerapp.data.remote.repo
 
-import com.example.movieexplorerapp.data.common.MovieRepository
 import com.example.movieexplorerapp.data.remote.api.MovieService
 import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
 import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
@@ -19,9 +18,8 @@ import javax.inject.Inject
  * Additionally, the executeAPICall function is used internally to handle exceptions specific to API calls, ensuring the app does not crash.
  */
 class RemoteMovieRepoImp @Inject constructor(
-    private val movieService: MovieService, private val localMovieRepoImp: MovieRepository
+    private val movieService: MovieService
 ) : RemoteMovieRepository {
-
 
     override suspend fun getAllMoviesFromAPI(): DiscoverMovieAPIResponseImp {
         return executeAPICall { movieService.exploreAllMovies() }

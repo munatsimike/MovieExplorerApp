@@ -10,9 +10,9 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = DISCOVER_MOVIE_TABLE_NAME)
 data class DiscoverMovieAPIResponseImp(
     @PrimaryKey(autoGenerate = true)
-    val primaryKey: Int?,
-    override val page: Int,
-    override val results: List<Movie>,
-    @Json(name = "total_pages") override val totalPages: Int,
-    @Json(name = "total_results") override val totalResults: Int
+    val primaryKey: Int? = null,
+    override val page: Int = 0,
+    override val results: List<Movie> = emptyList(),
+    @Json(name = "total_pages") override val totalPages: Int = 0,
+    @Json(name = "total_results") override val totalResults: Int = 0
 ) : BaseMovieApiResponse
