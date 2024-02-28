@@ -8,17 +8,8 @@ import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.example.movieexplorerapp.data.local.database.DISCOVER_MOVIE_TABLE_NAME
-import com.example.movieexplorerapp.data.local.database.DatabaseTable
-import com.example.movieexplorerapp.data.local.database.NOW_PLAYING_MOVIE_TABLE_NAME
-import com.example.movieexplorerapp.data.local.database.POPULAR_MOVIE_TABLE_NAME
-import com.example.movieexplorerapp.data.local.database.TOP_RATED_MOVIE_TABLE_NAME
-import com.example.movieexplorerapp.data.local.database.UPCOMING_MOVIE_TABLE_NAME
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.local.database.MOVIE_ENTITY
+import com.example.movieexplorerapp.data.local.model.MovieEntity
 
 /**
  * MovieDao contains suspending functions to interact with the local Room database.
@@ -34,35 +25,35 @@ interface MovieDao : BaseMovieDao {
      */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override suspend fun insertDiscover(discoverApiResponse: DiscoverMovieAPIResponseImp)
+    override suspend fun insertDiscover(discoverApiResponse: List<MovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override suspend fun insertNowPlaying(nowPlaying: NowPlayingMovieAPIResponseImp)
+    override suspend fun insertNowPlaying(nowPlaying: List<MovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override suspend fun insertPopular(popular: PopularMovieAPIResponseImp)
+    override suspend fun insertPopular(popular: List<MovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override suspend fun insertTopRated(topRated: TopRatedMovieAPIResponseImp)
+    override suspend fun insertTopRated(topRated: List<MovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override suspend fun insertUpcoming(upcoming: UpcomingMovieAPIResponseImp)
+    override suspend fun insertUpcoming(upcoming: List<MovieEntity>)
 
     // the following functions fetches the responses from the database
-    @Query("SELECT * FROM $DISCOVER_MOVIE_TABLE_NAME")
-    override fun fetchDiscover(): PagingSource<Int, DiscoverMovieAPIResponseImp>
+    @Query("SELECT * FROM $MOVIE_ENTITY")
+    override fun fetchDiscover(): PagingSource<Int, MovieEntity>
 
-    @Query("SELECT * FROM $NOW_PLAYING_MOVIE_TABLE_NAME")
-    override fun fetchNowPlaying(): PagingSource<Int, NowPlayingMovieAPIResponseImp>
+    @Query("SELECT * FROM $MOVIE_ENTITY")
+    override fun fetchNowPlaying(): PagingSource<Int, MovieEntity>
 
-    @Query("SELECT * FROM $POPULAR_MOVIE_TABLE_NAME")
-    override fun fetchPopular(): PagingSource<Int, PopularMovieAPIResponseImp>
+    @Query("SELECT * FROM $MOVIE_ENTITY")
+    override fun fetchPopular(): PagingSource<Int, MovieEntity>
 
-    @Query("SELECT * FROM $TOP_RATED_MOVIE_TABLE_NAME")
-    override fun fetchTopRated(): PagingSource<Int, TopRatedMovieAPIResponseImp>
+    @Query("SELECT * FROM $MOVIE_ENTITY")
+    override fun fetchTopRated(): PagingSource<Int, MovieEntity>
 
-    @Query("SELECT * FROM $UPCOMING_MOVIE_TABLE_NAME")
-    override fun fetchUpcoming(): PagingSource<Int, UpcomingMovieAPIResponseImp>
+    @Query("SELECT * FROM $MOVIE_ENTITY")
+    override fun fetchUpcoming(): PagingSource<Int, MovieEntity>
 
     /**
      *     The following method clears all the tables. DatabaseTable  is an enum with all database table names
@@ -71,8 +62,8 @@ interface MovieDao : BaseMovieDao {
     @RawQuery
     fun queryExecutor(query: SupportSQLiteQuery): Int
 
-    override suspend fun clearTable(tableName: DatabaseTable) {
-        val query = "DELETE FROM ${tableName.value}"
+    override suspend fun clearTable(tableName: String) {
+        val query = "DELETE FROM $tableName"
         queryExecutor(SimpleSQLiteQuery(query))
     }
 }

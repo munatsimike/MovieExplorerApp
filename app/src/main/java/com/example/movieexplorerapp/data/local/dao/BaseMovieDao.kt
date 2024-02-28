@@ -1,26 +1,21 @@
 package com.example.movieexplorerapp.data.local.dao
 
 import androidx.paging.PagingSource
-import com.example.movieexplorerapp.data.local.database.DatabaseTable
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.local.model.MovieEntity
 
 interface BaseMovieDao {
-    suspend fun insertDiscover(discoverApiResponse: DiscoverMovieAPIResponseImp)
-    suspend fun insertNowPlaying(nowPlaying: NowPlayingMovieAPIResponseImp)
-    suspend fun insertPopular(popular: PopularMovieAPIResponseImp)
-    suspend fun insertTopRated(topRated: TopRatedMovieAPIResponseImp)
-    suspend fun insertUpcoming(upcoming: UpcomingMovieAPIResponseImp)
+    suspend fun insertDiscover(discoverApiResponse: List<MovieEntity>)
+    suspend fun insertNowPlaying(nowPlaying: List<MovieEntity>)
+    suspend fun insertPopular(popular: List<MovieEntity>)
+    suspend fun insertTopRated(topRated: List<MovieEntity>)
+    suspend fun insertUpcoming(upcoming: List<MovieEntity>)
 
     // the following functions fetches the responses from the database
-    fun fetchDiscover(): PagingSource<Int, DiscoverMovieAPIResponseImp>
-    fun fetchNowPlaying(): PagingSource<Int, NowPlayingMovieAPIResponseImp>
-    fun fetchPopular(): PagingSource<Int, PopularMovieAPIResponseImp>
-    fun fetchTopRated(): PagingSource<Int, TopRatedMovieAPIResponseImp>
-    fun fetchUpcoming(): PagingSource<Int, UpcomingMovieAPIResponseImp>
+    fun fetchDiscover(): PagingSource<Int, MovieEntity>
+    fun fetchNowPlaying(): PagingSource<Int, MovieEntity>
+    fun fetchPopular(): PagingSource<Int, MovieEntity>
+    fun fetchTopRated(): PagingSource<Int, MovieEntity>
+    fun fetchUpcoming(): PagingSource<Int, MovieEntity>
 
-    suspend fun clearTable(tableName: DatabaseTable)
+    suspend fun clearTable(tableName: String)
 }

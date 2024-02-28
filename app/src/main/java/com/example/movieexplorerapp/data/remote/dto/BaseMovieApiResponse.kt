@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.domain.model
+package com.example.movieexplorerapp.data.remote.dto
 
 /**
  * This defines a basic a api response object

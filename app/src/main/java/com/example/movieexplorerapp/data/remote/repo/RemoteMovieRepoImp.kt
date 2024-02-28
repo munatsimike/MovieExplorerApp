@@ -1,12 +1,9 @@
 package com.example.movieexplorerapp.data.remote.repo
 
 import com.example.movieexplorerapp.data.remote.api.MovieService
-import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseImp
+import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
 import com.example.movieexplorerapp.utils.MyException
 import retrofit2.Response
 import java.io.IOException
@@ -21,23 +18,23 @@ class RemoteMovieRepoImp @Inject constructor(
     private val movieService: MovieService
 ) : RemoteMovieRepository {
 
-    override suspend fun getAllMoviesFromAPI(): DiscoverMovieAPIResponseImp {
+    override suspend fun getAllMoviesFromAPI(): MovieAPIResponseImp {
         return executeAPICall { movieService.exploreAllMovies() }
     }
 
-    override suspend fun getNowPlayingMoviesFromAPI(): NowPlayingMovieAPIResponseImp {
+    override suspend fun getNowPlayingMoviesFromAPI(): MovieAPIResponseWithDateImp {
         return executeAPICall { movieService.getNowPlayingMovies() }
     }
 
-    override suspend fun getUpComingMoviesFromAPI(): UpcomingMovieAPIResponseImp {
+    override suspend fun getUpComingMoviesFromAPI(): MovieAPIResponseWithDateImp {
         return executeAPICall { movieService.getUpcomingMovies() }
     }
 
-    override suspend fun getPopularMoviesFromAPI(): PopularMovieAPIResponseImp {
+    override suspend fun getPopularMoviesFromAPI(): MovieAPIResponseImp {
         return executeAPICall { movieService.getPopularMovies() }
     }
 
-    override suspend fun getTopRatedMoviesFromAPI(): TopRatedMovieAPIResponseImp {
+    override suspend fun getTopRatedMoviesFromAPI(): MovieAPIResponseImp {
         return executeAPICall { movieService.getTopRatedMovies() }
     }
 

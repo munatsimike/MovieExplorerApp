@@ -1,7 +1,7 @@
 package com.example.movieexplorerapp.data.remote.repo
 
 import com.example.movieexplorerapp.data.remote.api.MovieService
-import com.example.movieexplorerapp.domain.model.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
 import com.example.movieexplorerapp.utils.MyException
 import com.example.movieexplorerapp.utils.extensions.NetworkUtility.jsonToMovieObject
 import com.example.movieexplorerapp.utils.test.MockMovieRepoImp

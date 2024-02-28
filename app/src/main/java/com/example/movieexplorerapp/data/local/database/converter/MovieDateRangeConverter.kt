@@ -1,7 +1,7 @@
 package com.example.movieexplorerapp.data.local.database.converter
 
 import androidx.room.TypeConverter
-import com.example.movieexplorerapp.domain.model.MovieDateRange
+import com.example.movieexplorerapp.data.remote.dto.MovieDateRange
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

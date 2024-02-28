@@ -1,14 +1,8 @@
 package com.example.movieexplorerapp.data.local.repository
 
 import androidx.paging.PagingData
-
 import com.example.movieexplorerapp.data.common.MovieRepository
-import com.example.movieexplorerapp.data.local.database.DatabaseTable
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.local.model.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -20,19 +14,19 @@ import kotlinx.coroutines.flow.Flow
  */
 interface LocalMovieRepository : MovieRepository {
     // Inserts API responses into the Room database. Each response contains a list of movies and additional metadata.
-    suspend fun insertDiscover(discoverApiResponse: DiscoverMovieAPIResponseImp)
-    suspend fun insertNowPlaying(nowPlaying: NowPlayingMovieAPIResponseImp)
-    suspend fun insertPopular(popular: PopularMovieAPIResponseImp)
-    suspend fun insertTopRated(topRated: TopRatedMovieAPIResponseImp)
-    suspend fun insertUpcoming(upcoming: UpcomingMovieAPIResponseImp)
+    suspend fun insertDiscover(discoverApiResponse: List<MovieEntity>)
+    suspend fun insertNowPlaying(nowPlaying: List<MovieEntity>)
+    suspend fun insertPopular(popular: List<MovieEntity>)
+    suspend fun insertTopRated(topRated: List<MovieEntity>)
+    suspend fun insertUpcoming(upcoming: List<MovieEntity>)
 
     // Fetches responses from the database as a Flow. Observing changes and emitting data continuously.
-    fun fetchDiscover(): Flow<PagingData<DiscoverMovieAPIResponseImp>>
-    fun fetchNowPlaying():Flow<PagingData<NowPlayingMovieAPIResponseImp>>
-    fun fetchPopular(): Flow<PagingData<PopularMovieAPIResponseImp>>
-    fun fetchTopRated(): Flow<PagingData<TopRatedMovieAPIResponseImp>>
-    fun fetchUpcoming(): Flow<PagingData<UpcomingMovieAPIResponseImp>>
+    fun fetchDiscover(): Flow<PagingData<MovieEntity>>
+    fun fetchNowPlaying():Flow<PagingData<MovieEntity>>
+    fun fetchPopular(): Flow<PagingData<MovieEntity>>
+    fun fetchTopRated(): Flow<PagingData<MovieEntity>>
+    fun fetchUpcoming(): Flow<PagingData<MovieEntity>>
 
     // the following method clears all the tables.
-    suspend fun clearTable(tableName: DatabaseTable)
+    suspend fun clearTable(tableName: String)
 }

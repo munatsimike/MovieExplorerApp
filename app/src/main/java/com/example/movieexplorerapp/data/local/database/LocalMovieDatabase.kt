@@ -7,19 +7,11 @@ import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.data.local.database.converter.ListOfIntegersConverter
 import com.example.movieexplorerapp.data.local.database.converter.ListOfMoviesConverter
 import com.example.movieexplorerapp.data.local.database.converter.MovieDateRangeConverter
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.NowPlayingMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.PopularMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.TopRatedMovieAPIResponseImp
-import com.example.movieexplorerapp.domain.model.UpcomingMovieAPIResponseImp
+import com.example.movieexplorerapp.data.local.model.MovieEntity
 
 @Database(
     entities = [
-        DiscoverMovieAPIResponseImp::class,
-        NowPlayingMovieAPIResponseImp::class,
-        PopularMovieAPIResponseImp::class,
-        TopRatedMovieAPIResponseImp::class,
-        UpcomingMovieAPIResponseImp::class
+        MovieEntity::class
     ],
     version = 1
 )

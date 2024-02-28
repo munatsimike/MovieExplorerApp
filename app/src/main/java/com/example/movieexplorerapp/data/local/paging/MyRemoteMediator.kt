@@ -5,11 +5,12 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.example.movieexplorerapp.data.local.database.DatabaseTable
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
+import com.example.movieexplorerapp.data.local.model.MovieCategory
+import com.example.movieexplorerapp.data.local.model.MovieEntity
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
+import com.example.movieexplorerapp.data.remote.dto.Movie
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
-import com.example.movieexplorerapp.domain.model.DiscoverMovieAPIResponseImp
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -17,11 +18,11 @@ class MyRemoteMediator @Inject constructor(
     private val localMovieRepo: LocalMovieRepository,
     private val database: LocalMovieDatabase,
     private val remoteRepo: RemoteMovieRepository
-) : RemoteMediator<Int, DiscoverMovieAPIResponseImp>() {
+) : RemoteMediator<Int, MovieEntity>() {
 
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun load(
-        loadType: LoadType, state: PagingState<Int, DiscoverMovieAPIResponseImp>
+        loadType: LoadType, state: PagingState<Int, MovieEntity>
     ): MediatorResult {
         try {
             val page = when (loadType) {
@@ -41,7 +42,7 @@ class MyRemoteMediator @Inject constructor(
                         1
                     } else {
                         // Load the next page
-                        lastItem.page + 1
+                        lastItem.id + 1
                     }
                 }
             }
@@ -50,11 +51,11 @@ class MyRemoteMediator @Inject constructor(
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    localMovieRepo.clearTable(DatabaseTable.DISCOVER) // Clear existing data when refreshing
+                  // localMovieRepo.clearTable(DatabaseTable.DISCOVER) // Clear existing data when refreshing
                 }
 
                 response.let { data ->
-                    localMovieRepo.insertDiscover(data)
+                    localMovieRepo.insertDiscover(fromMovieToMovieEntityList(data.results))
                 }
             }
 
@@ -62,6 +63,15 @@ class MyRemoteMediator @Inject constructor(
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
         }
+    }
+
+    private fun fromMovieToMovieEntityList(movies: List<Movie>): List<MovieEntity> {
+        val movieEntities = mutableListOf<MovieEntity>()
+        for (movie in movies) {
+            val movieEntity = MovieEntity.fromMovieToMovieEntity(movie, MovieCategory.Discover)
+            movieEntities.add(movieEntity)
+        }
+        return movieEntities
     }
 }
 
