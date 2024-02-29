@@ -2,8 +2,11 @@ package com.example.movieexplorerapp.data.remote.repo
 
 import com.example.movieexplorerapp.data.remote.api.MovieService
 import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
+<<<<<<< HEAD
 import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseImp
 import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
+=======
+>>>>>>> 96c59544107052fa26ba09abc39e1f6ab68886f9
 import com.example.movieexplorerapp.utils.MyException
 import retrofit2.Response
 import java.io.IOException

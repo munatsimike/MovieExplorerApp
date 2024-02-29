@@ -2,10 +2,17 @@ package com.example.movieexplorerapp.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+<<<<<<< HEAD
 import com.example.movieexplorerapp.data.local.database.MOVIE_ENTITY
 import com.example.movieexplorerapp.data.remote.dto.Movie
 
 @Entity(tableName = MOVIE_ENTITY)
+=======
+import com.example.movieexplorerapp.data.local.database.MOVIE_ENTITY_TABLE
+import com.example.movieexplorerapp.data.remote.dto.Movie
+
+@Entity(tableName = MOVIE_ENTITY_TABLE)
+>>>>>>> 96c59544107052fa26ba09abc39e1f6ab68886f9
 class MovieEntity(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Int = 0,
