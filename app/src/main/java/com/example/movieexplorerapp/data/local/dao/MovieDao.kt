@@ -53,6 +53,7 @@ interface MovieDao : BaseMovieDao {
     override fun fetchTopRated(): PagingSource<Int, MovieEntity>
 
     @Query("SELECT * FROM $MOVIE_ENTITY")
+
     override fun fetchUpcoming(): PagingSource<Int, MovieEntity>
 
     /**

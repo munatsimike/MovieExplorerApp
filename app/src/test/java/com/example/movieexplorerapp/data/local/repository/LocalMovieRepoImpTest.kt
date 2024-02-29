@@ -18,7 +18,11 @@ class LocalMovieRepoImpTest {
 
     @Test
     fun insertDiscover() = runBlocking {
+<<<<<<< HEAD
         //localMovieRepoImp.insertDiscover(MovieAPIResponseImp(primaryKey = 1, page = 2, results = emptyList(), totalResults = 23, totalPages = 3))
+=======
+        //localMovieRepoImp.insertDiscover(DiscoverMovieAPIResponseImp(primaryKey = 1, page = 2, results = emptyList(), totalResults = 23, totalPages = 3))
+>>>>>>> 96c59544107052fa26ba09abc39e1f6ab68886f9
      // val result =  localMovieRepoImp.fetchDiscover()
         //assertThat(result).isNull()
     }

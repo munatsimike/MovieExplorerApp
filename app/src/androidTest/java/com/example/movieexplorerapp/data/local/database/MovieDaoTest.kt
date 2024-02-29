@@ -4,11 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
 import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.data.local.model.MovieEntity
-import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
-import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseImp
 import com.example.movieexplorerapp.data.remote.dto.Movie
-import com.example.movieexplorerapp.data.remote.dto.MovieDateRange
-import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
 import com.example.movieexplorerapp.utils.test.TestUtils.listOfMovies
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -53,9 +49,7 @@ class MovieDaoTest {
 
     @Test
     fun should_insert_and_fetch_discover_movie_object_from_database() = runTest {
-        val sampleData = MovieAPIResponseImp(
-            primaryKey = 1, page = 1, results = movieList, totalPages = 2, totalResults = 4
-        )
+        val sampleData = emptyList<MovieEntity>()
 
         movieDao.insertDiscover(sampleData)
 
@@ -69,9 +63,7 @@ class MovieDaoTest {
 
     @Test
     fun should_insert_and_fetch_now_playing_movie_object_from_database() = runTest {
-        val sampleData = MovieAPIResponseWithDateImp(
-            primaryKey = 1, page = 1, results = movieList, totalPages = 2, totalResults = 4, dataRange = MovieDateRange("","")
-        )
+        val sampleData = emptyList<MovieEntity>()
 
         movieDao.insertNowPlaying(sampleData)
 
@@ -84,9 +76,7 @@ class MovieDaoTest {
 
     @Test
     fun should_insert_and_fetch_popular_movie_object_from_database() = runTest {
-        val sampleData = PopularMovieAPIResponseImp(
-            primaryKey = 1, page = 1, results = movieList, totalPages = 2, totalResults = 4
-        )
+        val sampleData = emptyList<MovieEntity>()
 
         movieDao.insertPopular(sampleData)
 
@@ -99,8 +89,7 @@ class MovieDaoTest {
 
     @Test
     fun should_insert_and_fetch_top_rated_movie_object_from_database() = runTest {
-        val sampleData = TopRatedMovieAPIResponseImp(
-            primaryKey = 1, page = 1, results = movieList, totalPages = 2, totalResults = 4)
+        val sampleData = emptyList<MovieEntity>()
 
         movieDao.insertTopRated(sampleData)
 
@@ -113,9 +102,7 @@ class MovieDaoTest {
 
     @Test
     fun should_insert_and_fetch_upcoming_movie_object_from_database() = runTest {
-        val sampleData = UpcomingMovieAPIResponseImp(
-            primaryKey = 1, page = 1, results = movieList, totalPages = 2, totalResults = 4, dataRange = MovieDateRange("","")
-        )
+        val sampleData = emptyList<MovieEntity>()
 
         movieDao.insertUpcoming(sampleData)
 
@@ -125,19 +112,20 @@ class MovieDaoTest {
         val loadResult = loadPagingSourceData(pagingSource)
         validateLoadResult(loadResult, sampleData)
     }
+
     // Assert that the loaded data matches the expected data
-    private fun <T : BaseMovieApiResponse> validateLoadResult(
-        loadResult: PagingSource.LoadResult<Int, T>, sampleData: T
+    private fun validateLoadResult(
+        loadResult: PagingSource.LoadResult<Int, MovieEntity>, sampleData: List<MovieEntity>
     ) {
 
         assertThat(loadResult is PagingSource.LoadResult.Page).isTrue()
         val pageData = (loadResult as PagingSource.LoadResult.Page).data
-        assertThat(pageData[0].results.size == sampleData.results.size).isTrue()
-        assertThat(pageData[0] == sampleData).isTrue()
+        assertThat(pageData.size == sampleData.size).isTrue()
+        assertThat(pageData == sampleData).isTrue()
     }
 
     // Load the data from the PagingSource
-    private suspend fun  loadPagingSourceData(
+    private suspend fun loadPagingSourceData(
         pagingSource: PagingSource<Int, MovieEntity>, loadSize: Int = 10
     ): PagingSource.LoadResult<Int, MovieEntity> {
         return pagingSource.load(
