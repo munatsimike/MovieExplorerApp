@@ -21,7 +21,6 @@ import com.example.movieexplorerapp.data.local.model.MovieEntity
 import com.example.movieexplorerapp.ui.theme.MovieExplorerAppTheme
 import com.example.movieexplorerapp.ui.viewModel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

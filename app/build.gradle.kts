@@ -138,5 +138,10 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //shared preferences
+
+    implementation("androidx.security:security-crypto:1.0.0")
+
 }
 

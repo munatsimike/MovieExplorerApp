@@ -1,16 +1,18 @@
 package com.example.movieexplorerapp.di
 
+import android.content.Context
 import com.example.movieexplorerapp.BuildConfig
 import com.example.movieexplorerapp.data.remote.api.Constants.BASE_URL
 import com.example.movieexplorerapp.data.remote.api.MovieService
-import com.example.movieexplorerapp.data.remote.api.apikey.APIkey
-import com.example.movieexplorerapp.data.remote.api.apikey.APIkeyProviderImp
-import com.example.movieexplorerapp.data.remote.api.apikey.ApiKeyInterceptor
+import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyInterceptor
+import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyProvider
+import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyProviderImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,15 +26,15 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAPIkey(): APIkey {
-        return APIkeyProviderImp.getKey()
+    fun provideAPIkey(@ApplicationContext context: Context): APIKeyProvider {
+        return APIKeyProviderImpl(context)
     }
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(apIkey: APIkey): OkHttpClient =
+    fun provideOkHttpClient(apiKeyProvider: APIKeyProvider): OkHttpClient =
         OkHttpClient().newBuilder()
-            .addInterceptor(ApiKeyInterceptor(apIkey.key)).also { client ->
+            .addInterceptor(APIKeyInterceptor(apiKeyProvider.getKey().key)).also { client ->
 
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()
