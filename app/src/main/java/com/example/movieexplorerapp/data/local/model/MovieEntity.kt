@@ -5,6 +5,11 @@ import androidx.room.PrimaryKey
 import com.example.movieexplorerapp.data.local.database.MOVIE_ENTITY
 import com.example.movieexplorerapp.data.remote.dto.Movie
 
+/**
+ * This class defines objects that will be saved to the database and displayed to the user.
+ * It inherits the movie object fetched from the API but includes an additional category field to differentiate movies.
+ * The overridden methods help compare movie object contents in test cases.
+ */
 @Entity(tableName = MOVIE_ENTITY)
 class MovieEntity(
     @PrimaryKey(autoGenerate = true)
@@ -40,7 +45,21 @@ class MovieEntity(
     voteAverage,
     voteCount
 ) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as MovieEntity
+        return id == other.id
+    }
+
+    override fun hashCode(): Int {
+        // Hash other relevant fields
+        return id
+    }
+
     companion object {
+
+        // Converts a [Movie] object to a [MovieEntity] with a given category.
         fun fromMovieToMovieEntity(movie: Movie, category: MovieCategory): MovieEntity {
             return MovieEntity(
                 id = movie.id,
@@ -61,5 +80,4 @@ class MovieEntity(
             )
         }
     }
-
 }

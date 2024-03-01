@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.data.remote.api
+package com.example.movieexplorerapp.data.remote.api.apikey
 
 import okhttp3.Interceptor
 import okhttp3.Response

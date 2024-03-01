@@ -1,9 +1,11 @@
 package com.example.movieexplorerapp.di
 
 import com.example.movieexplorerapp.BuildConfig
-import com.example.movieexplorerapp.data.remote.api.ApiKeyInterceptor
-import com.example.movieexplorerapp.data.remote.api.MovieService
 import com.example.movieexplorerapp.data.remote.api.Constants.BASE_URL
+import com.example.movieexplorerapp.data.remote.api.MovieService
+import com.example.movieexplorerapp.data.remote.api.apikey.APIkey
+import com.example.movieexplorerapp.data.remote.api.apikey.APIkeyProviderImp
+import com.example.movieexplorerapp.data.remote.api.apikey.ApiKeyInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -16,17 +18,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Singleton
     @Provides
+    fun provideAPIkey(): APIkey {
+        return APIkeyProviderImp.getKey()
+    }
 
-    fun provideOkHttpClient(): OkHttpClient =
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(apIkey: APIkey): OkHttpClient =
         OkHttpClient().newBuilder()
-            .addInterceptor(ApiKeyInterceptor("2b36d6fc58fa055e7f5ca4dc10684209")).also { client ->
+            .addInterceptor(ApiKeyInterceptor(apIkey.key)).also { client ->
 
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()

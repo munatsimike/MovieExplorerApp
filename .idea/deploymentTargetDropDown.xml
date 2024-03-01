@@ -2,7 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="MovieDaoTest">
+        <State />
+      </entry>
+      <entry key="MovieServiceTest">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="should_handle_empty_list()">
+        <State />
+      </entry>
+      <entry key="should_insert_and_fetch_discover_movie_object_from_database()">
+        <State />
+      </entry>
+      <entry key="should_insert_and_fetch_now_playing_movie_object_from_database()">
         <State />
       </entry>
     </value>

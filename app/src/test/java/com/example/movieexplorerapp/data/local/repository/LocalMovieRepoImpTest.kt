@@ -10,21 +10,12 @@ class LocalMovieRepoImpTest {
 
     @Before
     fun setup() {
-      // localMovieRepoImp = LocalMovieRepoImp(movieDao = FakeMovieDao())
-        runBlocking {
-            localMovieRepoImp.clearTable("")
-        }
+
     }
 
     @Test
     fun insertDiscover() = runBlocking {
-<<<<<<< HEAD
-        //localMovieRepoImp.insertDiscover(MovieAPIResponseImp(primaryKey = 1, page = 2, results = emptyList(), totalResults = 23, totalPages = 3))
-=======
-        //localMovieRepoImp.insertDiscover(DiscoverMovieAPIResponseImp(primaryKey = 1, page = 2, results = emptyList(), totalResults = 23, totalPages = 3))
->>>>>>> 96c59544107052fa26ba09abc39e1f6ab68886f9
-     // val result =  localMovieRepoImp.fetchDiscover()
-        //assertThat(result).isNull()
+
     }
 
     @Test
@@ -45,7 +36,6 @@ class LocalMovieRepoImpTest {
 
     @Test
     fun fetchDiscover() {
-        localMovieRepoImp.fetchDiscover()
     }
 
     @Test

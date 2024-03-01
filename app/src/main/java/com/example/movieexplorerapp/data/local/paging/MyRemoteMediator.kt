@@ -51,11 +51,11 @@ class MyRemoteMediator @Inject constructor(
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                  // localMovieRepo.clearTable(DatabaseTable.DISCOVER) // Clear existing data when refreshing
+                  localMovieRepo.deleteMovies(MovieCategory.Discover)
                 }
 
                 response.let { data ->
-                    localMovieRepo.insertDiscover(fromMovieToMovieEntityList(data.results))
+                    localMovieRepo.insertMovies(fromMovieToMovieEntityList(data.results))
                 }
             }
 

@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
+import com.example.movieexplorerapp.data.local.model.MovieCategory
 import com.example.movieexplorerapp.data.local.model.MovieEntity
 import com.example.movieexplorerapp.data.local.paging.MyRemoteMediator
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
@@ -22,53 +23,20 @@ class LocalMovieRepoImp @Inject constructor(
     private val remoteMovieRepoImp: RemoteMovieRepoImp,
     private val database: LocalMovieDatabase
 ) : LocalMovieRepository {
-    override suspend fun insertDiscover(discoverApiResponse: List<MovieEntity>) {
-        movieDao.insertDiscover(discoverApiResponse)
-    }
-
-    override suspend fun insertNowPlaying(nowPlaying: List<MovieEntity>) {
-        movieDao.insertNowPlaying(nowPlaying)
-    }
-
-    override suspend fun insertPopular(popular: List<MovieEntity>) {
-        movieDao.insertPopular(popular)
-    }
-
-    override suspend fun insertTopRated(topRated: List<MovieEntity>) {
-        movieDao.insertTopRated(topRated)
-    }
-
-    override suspend fun insertUpcoming(upcoming: List<MovieEntity>) {
-        movieDao.insertUpcoming(upcoming)
+    override suspend fun insertMovies(movies: List<MovieEntity>) {
+        movieDao.insertMovies(movies)
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun fetchDiscover(): Flow<PagingData<MovieEntity>> {
+    override fun fetchMovies(category: MovieCategory): Flow<PagingData<MovieEntity>> {
         return Pager(
             config = PagingConfig(pageSize = 5),
             remoteMediator = MyRemoteMediator(this, database, remoteMovieRepoImp),
-            pagingSourceFactory = { movieDao.fetchDiscover() }
+            pagingSourceFactory = { movieDao.fetchMovies(category) }
         ).flow
-
     }
 
-    override fun fetchNowPlaying(): Flow<PagingData<MovieEntity>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun fetchPopular(): Flow<PagingData<MovieEntity>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun fetchTopRated(): Flow<PagingData<MovieEntity>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun fetchUpcoming(): Flow<PagingData<MovieEntity>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun clearTable(tableName: String) {
-        movieDao.clearTable(tableName)
+    override suspend fun deleteMovies(category: MovieCategory) {
+        movieDao.deleteMovies(category)
     }
 }
