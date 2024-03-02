@@ -16,7 +16,7 @@ import com.example.movieexplorerapp.data.local.model.MovieEntity
  */
 @Dao
 interface MovieDao : BaseMovieDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     override suspend fun insertMovies(movies: List<MovieEntity>)
     @Query("SELECT * FROM $MOVIE_ENTITY WHERE category = :category")
     override fun fetchMovies(category: MovieCategory): PagingSource<Int, MovieEntity>

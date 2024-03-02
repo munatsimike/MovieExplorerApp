@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
+import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.local.model.MovieCategory
 import com.example.movieexplorerapp.data.local.model.MovieEntity
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class LocalMovieRepoImp @Inject constructor(
     private val movieDao: BaseMovieDao,
     private val remoteMovieRepoImp: RemoteMovieRepoImp,
-    private val database: LocalMovieDatabase
+    private val database: LocalMovieDatabase,
+    private val paginationMetadataDao: MoviePaginationMetadataDao
 ) : LocalMovieRepository {
     override suspend fun insertMovies(movies: List<MovieEntity>) {
         movieDao.insertMovies(movies)
@@ -31,7 +33,13 @@ class LocalMovieRepoImp @Inject constructor(
     override fun fetchMovies(category: MovieCategory): Flow<PagingData<MovieEntity>> {
         return Pager(
             config = PagingConfig(pageSize = 5),
-            remoteMediator = MyRemoteMediator(this, database, remoteMovieRepoImp),
+            remoteMediator = MyRemoteMediator(
+                this,
+                database,
+                remoteMovieRepoImp,
+                category,
+                paginationMetadataDao
+            ),
             pagingSourceFactory = { movieDao.fetchMovies(category) }
         ).flow
     }
