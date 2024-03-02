@@ -45,6 +45,7 @@ class RemoteMovieRepoImpTest {
     fun should_fetch_now_playing_movies_from_api() {
 
         val data = fetchData(sampleMovieJsonResponseWithDateRange().jsonToMovieObject(),
+
             { remoteMovieRepo.getNowPlayingMoviesFromAPI(1) },
             { movieService.getNowPlayingMovies(1) })
 
@@ -55,6 +56,7 @@ class RemoteMovieRepoImpTest {
     fun should_fetch_upcoming_movies_from_api() {
 
         val data = fetchData(sampleMovieJsonResponseWithDateRange().jsonToMovieObject(),
+
             { remoteMovieRepo.getUpComingMoviesFromAPI(1) },
             { movieService.getUpcomingMovies(1) })
 
@@ -73,6 +75,7 @@ class RemoteMovieRepoImpTest {
     @Test
     fun should_fetch_top_rated_movies_from_api() {
         val data = fetchData(sampleMovieJsonApiResponse().jsonToMovieObject(),
+
             { remoteMovieRepo.getTopRatedMoviesFromAPI(1) },
             { movieService.getTopRatedMovies(1) })
 
