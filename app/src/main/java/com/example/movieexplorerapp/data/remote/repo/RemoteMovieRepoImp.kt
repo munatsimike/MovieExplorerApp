@@ -18,24 +18,24 @@ class RemoteMovieRepoImp @Inject constructor(
     private val movieService: MovieService
 ) : RemoteMovieRepository {
 
-    override suspend fun getAllMoviesFromAPI(): MovieAPIResponseImp {
-        return executeAPICall { movieService.exploreAllMovies() }
+    override suspend fun getAllMoviesFromAPI(page: Int): MovieAPIResponseImp {
+        return executeAPICall { movieService.exploreAllMovies(page) }
     }
 
-    override suspend fun getNowPlayingMoviesFromAPI(): MovieAPIResponseWithDateImp {
-        return executeAPICall { movieService.getNowPlayingMovies() }
+    override suspend fun getNowPlayingMoviesFromAPI(page: Int): MovieAPIResponseWithDateImp {
+        return executeAPICall { movieService.getNowPlayingMovies(page) }
     }
 
-    override suspend fun getUpComingMoviesFromAPI(): MovieAPIResponseWithDateImp {
-        return executeAPICall { movieService.getUpcomingMovies() }
+    override suspend fun getUpComingMoviesFromAPI(page: Int): MovieAPIResponseWithDateImp {
+        return executeAPICall { movieService.getUpcomingMovies(page) }
     }
 
-    override suspend fun getPopularMoviesFromAPI(): MovieAPIResponseImp {
-        return executeAPICall { movieService.getPopularMovies() }
+    override suspend fun getPopularMoviesFromAPI(page: Int): MovieAPIResponseImp {
+        return executeAPICall { movieService.getPopularMovies(page) }
     }
 
-    override suspend fun getTopRatedMoviesFromAPI(): MovieAPIResponseImp {
-        return executeAPICall { movieService.getTopRatedMovies() }
+    override suspend fun getTopRatedMoviesFromAPI(page: Int): MovieAPIResponseImp {
+        return executeAPICall { movieService.getTopRatedMovies(page) }
     }
 
     suspend fun <T : BaseMovieApiResponse> executeAPICall(apiCall: suspend () -> Response<T>): T {

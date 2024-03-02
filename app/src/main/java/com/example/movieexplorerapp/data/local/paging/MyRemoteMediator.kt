@@ -43,17 +43,24 @@ class MyRemoteMediator @Inject constructor(
                 }
 
                 LoadType.APPEND -> {
-                    val lastItem = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        1
+                    val pagingMataData =
+                        paginationMetadataDao.fetchPagingMetaData(movieCategory.name)
+                    if (pagingMataData.size == 1) {
+                        val metaData = pagingMataData[0]
+                        if (metaData.page <= metaData.totalPages) {
+                            metaData.page + 1
+                        } else {
+                            return MediatorResult.Success(endOfPaginationReached = true)
+                        }
+
                     } else {
-                        // Load the next page
-                        lastItem.id + 1
+                        // Unexpected metadata size, handle accordingly
+                        return MediatorResult.Error(Exception("Unexpected metadata size"))
                     }
                 }
             }
 
-            val response = getMovies(movieCategory)
+            val response = getMovies(movieCategory, page)
             saveMovies(response, loadType)
 
             return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
@@ -70,26 +77,26 @@ class MyRemoteMediator @Inject constructor(
         return result
     }
 
-    private suspend fun getMovies(category: MovieCategory): BaseMovieApiResponse {
+    private suspend fun getMovies(category: MovieCategory, page: Int): BaseMovieApiResponse {
         return when (category) {
             MovieCategory.Discover -> {
-                remoteRepo.getAllMoviesFromAPI()
+                remoteRepo.getAllMoviesFromAPI(page)
             }
 
             MovieCategory.Popular -> {
-                remoteRepo.getPopularMoviesFromAPI()
+                remoteRepo.getPopularMoviesFromAPI(page)
             }
 
             MovieCategory.NowPlaying -> {
-                remoteRepo.getNowPlayingMoviesFromAPI()
+                remoteRepo.getNowPlayingMoviesFromAPI(page)
             }
 
             MovieCategory.UpComing -> {
-                remoteRepo.getUpComingMoviesFromAPI()
+                remoteRepo.getUpComingMoviesFromAPI(page)
             }
 
             MovieCategory.TopRated -> {
-                remoteRepo.getTopRatedMoviesFromAPI()
+                remoteRepo.getTopRatedMoviesFromAPI(page)
             }
         }
     }

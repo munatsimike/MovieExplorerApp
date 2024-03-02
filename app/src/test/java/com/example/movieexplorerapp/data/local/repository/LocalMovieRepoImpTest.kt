@@ -3,6 +3,7 @@ package com.example.movieexplorerapp.data.local.repository
 import androidx.paging.testing.asSnapshot
 import com.example.movieexplorerapp.data.dao.FakeMovieDao
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
+import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.local.model.MovieCategory
 import com.example.movieexplorerapp.data.local.model.MovieEntity
@@ -22,7 +23,8 @@ class LocalMovieRepoImpTest {
         val remoteMovieRepoImp: RemoteMovieRepoImp = mockk()
         val database: LocalMovieDatabase = mockk()
         val movieDao: BaseMovieDao = FakeMovieDao()
-        localMovieRepoImp = LocalMovieRepoImp(movieDao,remoteMovieRepoImp,database)
+        val paginationMetadataDao: MoviePaginationMetadataDao = mockk()
+        localMovieRepoImp = LocalMovieRepoImp(movieDao,remoteMovieRepoImp,database, paginationMetadataDao)
     }
 
     @Test
