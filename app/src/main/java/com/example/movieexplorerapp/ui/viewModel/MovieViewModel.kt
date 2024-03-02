@@ -16,7 +16,11 @@ class MovieViewModel @Inject constructor(
     private val localRepo: LocalMovieRepoImp,
     apiKeyProvider: APIKeyProvider
 ) : ViewModel() {
-    val movies = localRepo.fetchMovies(MovieCategory.Discover)
+    val discover = localRepo.fetchMovies(MovieCategory.Discover)
+    val popular = localRepo.fetchMovies(MovieCategory.Popular)
+    val topRated = localRepo.fetchMovies(MovieCategory.TopRated)
+    val upComing = localRepo.fetchMovies(MovieCategory.UpComing)
+    val nowPlaying = localRepo.fetchMovies(MovieCategory.NowPlaying)
 
     init {
         val key = apiKeyProvider.getKey()

@@ -5,11 +5,14 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.local.model.MovieCategory
 import com.example.movieexplorerapp.data.local.model.MovieEntity
 import com.example.movieexplorerapp.data.local.model.MovieMapper
+import com.example.movieexplorerapp.data.local.model.MoviePaginationMetadata
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
+import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
 import com.example.movieexplorerapp.data.remote.dto.Movie
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
 import javax.inject.Inject
@@ -18,7 +21,9 @@ import javax.inject.Inject
 class MyRemoteMediator @Inject constructor(
     private val localMovieRepo: LocalMovieRepository,
     private val database: LocalMovieDatabase,
-    private val remoteRepo: RemoteMovieRepository
+    private val remoteRepo: RemoteMovieRepository,
+    private val movieCategory: MovieCategory,
+    private val paginationMetadataDao: MoviePaginationMetadataDao
 ) : RemoteMediator<Int, MovieEntity>() {
 
     @OptIn(ExperimentalPagingApi::class)
@@ -48,17 +53,8 @@ class MyRemoteMediator @Inject constructor(
                 }
             }
 
-            val response = remoteRepo.getAllMoviesFromAPI()
-
-            database.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    localMovieRepo.deleteMovies(MovieCategory.Discover)
-                }
-
-                response.let { data ->
-                    localMovieRepo.insertMovies(mapMovie(data.results, MovieCategory.Discover))
-                }
-            }
+            val response = getMovies(movieCategory)
+            saveMovies(response, loadType)
 
             return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
         } catch (exception: Exception) {
@@ -72,6 +68,46 @@ class MyRemoteMediator @Inject constructor(
             throw it
         }
         return result
+    }
+
+    private suspend fun getMovies(category: MovieCategory): BaseMovieApiResponse {
+        return when (category) {
+            MovieCategory.Discover -> {
+                remoteRepo.getAllMoviesFromAPI()
+            }
+
+            MovieCategory.Popular -> {
+                remoteRepo.getPopularMoviesFromAPI()
+            }
+
+            MovieCategory.NowPlaying -> {
+                remoteRepo.getNowPlayingMoviesFromAPI()
+            }
+
+            MovieCategory.UpComing -> {
+                remoteRepo.getUpComingMoviesFromAPI()
+            }
+
+            MovieCategory.TopRated -> {
+                remoteRepo.getTopRatedMoviesFromAPI()
+            }
+        }
+    }
+
+    private suspend fun saveMovies(apiResponse: BaseMovieApiResponse, loadType: LoadType) {
+        database.withTransaction {
+            if (loadType == LoadType.REFRESH) {
+                localMovieRepo.deleteMovies(movieCategory)
+            }
+
+            apiResponse.let { data ->
+                val mapResult = mapMovie(data.results, movieCategory)
+                val paginationMetadata =
+                    MoviePaginationMetadata(movieCategory.name, data.page, data.totalPages)
+                localMovieRepo.insertMovies(mapResult)
+                paginationMetadataDao.insertPagingMetaData(paginationMetadata)
+            }
+        }
     }
 }
 
