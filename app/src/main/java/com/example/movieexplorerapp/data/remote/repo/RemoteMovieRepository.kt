@@ -8,9 +8,9 @@ import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
  * using Retrofit service. Each method corresponds to a specific type of movie data response.
  */
 interface RemoteMovieRepository : MovieRepository {
-    suspend fun getAllMoviesFromAPI(): MovieAPIResponseImp
-    suspend fun getNowPlayingMoviesFromAPI(): MovieAPIResponseWithDateImp
-    suspend fun getUpComingMoviesFromAPI(): MovieAPIResponseWithDateImp
-    suspend fun getPopularMoviesFromAPI(): MovieAPIResponseImp
-    suspend fun getTopRatedMoviesFromAPI(): MovieAPIResponseImp
+    suspend fun getAllMoviesFromAPI(page: Int): MovieAPIResponseImp
+    suspend fun getNowPlayingMoviesFromAPI(page: Int): MovieAPIResponseWithDateImp
+    suspend fun getUpComingMoviesFromAPI(page: Int): MovieAPIResponseWithDateImp
+    suspend fun getPopularMoviesFromAPI(page: Int): MovieAPIResponseImp
+    suspend fun getTopRatedMoviesFromAPI(page: Int): MovieAPIResponseImp
 }

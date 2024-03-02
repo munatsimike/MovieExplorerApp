@@ -4,6 +4,7 @@ import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseImp
 import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * The service is responsible for making HTTP requests to the remote server.
@@ -12,19 +13,19 @@ import retrofit2.http.GET
  */
 interface MovieService {
     @GET("discover/movie")
-    suspend fun exploreAllMovies(): Response<MovieAPIResponseImp>
+    suspend fun exploreAllMovies(@Query("page") page: Int): Response<MovieAPIResponseImp>
 
     // api response with date range
     @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(): Response<MovieAPIResponseWithDateImp>
+    suspend fun getNowPlayingMovies(@Query("page") page: Int): Response<MovieAPIResponseWithDateImp>
 
     @GET("movie/popular")
-    suspend fun getPopularMovies(): Response<MovieAPIResponseImp>
+    suspend fun getPopularMovies(@Query("page") page: Int): Response<MovieAPIResponseImp>
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(): Response<MovieAPIResponseImp>
+    suspend fun getTopRatedMovies(@Query("page") page: Int): Response<MovieAPIResponseImp>
 
     // api response with date range
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(): Response<MovieAPIResponseWithDateImp>
+    suspend fun getUpcomingMovies(@Query("page") page: Int): Response<MovieAPIResponseWithDateImp>
 }

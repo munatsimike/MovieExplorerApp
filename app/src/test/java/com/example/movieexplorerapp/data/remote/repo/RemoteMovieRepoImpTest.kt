@@ -35,10 +35,10 @@ class RemoteMovieRepoImpTest {
     @Test
     fun should_fetch_all_movies_from_api() {
         val data = fetchData(sampleMovieJsonApiResponse().jsonToMovieObject(),
-            { remoteMovieRepo.getAllMoviesFromAPI() },
-            { movieService.exploreAllMovies() })
+            { remoteMovieRepo.getAllMoviesFromAPI(1) },
+            { movieService.exploreAllMovies(1) })
 
-        validateResult(data, 4) { movieService.exploreAllMovies() }
+        validateResult(data, 4) { movieService.exploreAllMovies(1) }
     }
 
     @Test
@@ -46,9 +46,9 @@ class RemoteMovieRepoImpTest {
 
         val data = fetchData(sampleMovieJsonResponseWithDateRange().jsonToMovieObject(),
             { remoteMovieRepo.getNowPlayingMoviesFromAPI() },
-            { movieService.getNowPlayingMovies() })
+            { movieService.getNowPlayingMovies(1) })
 
-        validateResult(data, 5) { movieService.getNowPlayingMovies() }
+        validateResult(data, 5) { movieService.getNowPlayingMovies(1) }
     }
 
     @Test
@@ -56,27 +56,27 @@ class RemoteMovieRepoImpTest {
 
         val data = fetchData(sampleMovieJsonResponseWithDateRange().jsonToMovieObject(),
             { remoteMovieRepo.getUpComingMoviesFromAPI() },
-            { movieService.getUpcomingMovies() })
+            { movieService.getUpcomingMovies(1) })
 
-        validateResult(data, 5) { movieService.getUpcomingMovies() }
+        validateResult(data, 5) { movieService.getUpcomingMovies(1) }
     }
 
     @Test
     fun should_fetch_popular_movie_from_api() {
         val data = fetchData(sampleMovieJsonApiResponse().jsonToMovieObject(),
-            { remoteMovieRepo.getPopularMoviesFromAPI() },
-            { movieService.getPopularMovies() })
+            { remoteMovieRepo.getPopularMoviesFromAPI(1) },
+            { movieService.getPopularMovies(1) })
 
-        validateResult(data, 4) { movieService.getPopularMovies() }
+        validateResult(data, 4) { movieService.getPopularMovies(1) }
     }
 
     @Test
     fun should_fetch_top_rated_movies_from_api() {
         val data = fetchData(sampleMovieJsonApiResponse().jsonToMovieObject(),
             { remoteMovieRepo.getTopRatedMoviesFromAPI() },
-            { movieService.getTopRatedMovies() })
+            { movieService.getTopRatedMovies(1) })
 
-        validateResult(data, 4) { movieService.getTopRatedMovies() }
+        validateResult(data, 4) { movieService.getTopRatedMovies(1) }
     }
 
     @Test
