@@ -140,8 +140,11 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     //shared preferences
-
     implementation("androidx.security:security-crypto:1.0.0")
+
+    androidTestImplementation ("androidx.paging:paging-testing:3.2.1")
+    testImplementation ("androidx.paging:paging-testing:3.2.1")
+
 
 }
 

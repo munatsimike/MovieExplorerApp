@@ -29,7 +29,7 @@ class RemoteMovieRepoImpTest {
     fun setUp() {
         movieService = mockk()
         localMovieRepoImp = MockMovieRepoImp()
-        remoteMovieRepo = RemoteMovieRepoImp(movieService, localMovieRepoImp)
+        remoteMovieRepo = RemoteMovieRepoImp(movieService)
     }
 
     @Test

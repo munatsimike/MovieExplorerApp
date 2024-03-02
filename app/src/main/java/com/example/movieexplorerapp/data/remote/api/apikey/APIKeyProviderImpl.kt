@@ -24,10 +24,12 @@ class APIKeyProviderImpl(context: Context) : APIKeyProvider {
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
+
     private val editor = sharedPreferences.edit()
+    private val apiKey = "api_key"
 
     override fun getKey(): APIKey {
-        val apiKey = sharedPreferences.getString("api_key", null)
+        val apiKey = sharedPreferences.getString(apiKey, null)
         return APIKey(key = apiKey ?: "")
     }
 
@@ -36,6 +38,6 @@ class APIKeyProviderImpl(context: Context) : APIKeyProvider {
      * To delete an API key, pass an empty APIKey object.
      */
     override fun updateKey(apIkey: APIKey) {
-        editor.putString("api_key", apIkey.key).apply()
+        editor.putString(apiKey, apIkey.key).apply()
     }
 }

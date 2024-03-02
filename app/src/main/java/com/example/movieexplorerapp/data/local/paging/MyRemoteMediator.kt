@@ -8,6 +8,7 @@ import androidx.room.withTransaction
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.local.model.MovieCategory
 import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.local.model.MovieMapper
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
 import com.example.movieexplorerapp.data.remote.dto.Movie
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
@@ -51,11 +52,11 @@ class MyRemoteMediator @Inject constructor(
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                  localMovieRepo.deleteMovies(MovieCategory.Discover)
+                    localMovieRepo.deleteMovies(MovieCategory.Discover)
                 }
 
                 response.let { data ->
-                    localMovieRepo.insertMovies(fromMovieToMovieEntityList(data.results))
+                    localMovieRepo.insertMovies(mapMovie(data.results, MovieCategory.Discover))
                 }
             }
 
@@ -65,13 +66,12 @@ class MyRemoteMediator @Inject constructor(
         }
     }
 
-    private fun fromMovieToMovieEntityList(movies: List<Movie>): List<MovieEntity> {
-        val movieEntities = mutableListOf<MovieEntity>()
-        for (movie in movies) {
-            val movieEntity = MovieEntity.fromMovieToMovieEntity(movie, MovieCategory.Discover)
-            movieEntities.add(movieEntity)
+    private fun mapMovie(list: List<Movie>, category: MovieCategory): List<MovieEntity> {
+        val mapResult = MovieMapper.mapList(list, category)
+        val result = mapResult.getOrElse {
+            throw it
         }
-        return movieEntities
+        return result
     }
 }
 

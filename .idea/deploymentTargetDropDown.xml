@@ -17,9 +17,6 @@
       <entry key="should_insert_and_fetch_discover_movie_object_from_database()">
         <State />
       </entry>
-      <entry key="should_insert_and_fetch_now_playing_movie_object_from_database()">
-        <State />
-      </entry>
     </value>
   </component>
 </project>

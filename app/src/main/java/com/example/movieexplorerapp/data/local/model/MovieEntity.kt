@@ -56,28 +56,4 @@ class MovieEntity(
         // Hash other relevant fields
         return id
     }
-
-    companion object {
-
-        // Converts a [Movie] object to a [MovieEntity] with a given category.
-        fun fromMovieToMovieEntity(movie: Movie, category: MovieCategory): MovieEntity {
-            return MovieEntity(
-                id = movie.id,
-                adult = movie.adult,
-                backdropPath = movie.backdropPath,
-                genreIds = movie.genreIds,
-                originalLanguage = movie.originalLanguage,
-                originalTitle = movie.originalTitle,
-                overview = movie.overview,
-                popularity = movie.popularity,
-                posterPath = movie.posterPath,
-                releaseDate = movie.releaseDate,
-                title = movie.title,
-                video = movie.video,
-                voteAverage = movie.voteAverage,
-                voteCount = movie.voteCount,
-                category = category
-            )
-        }
-    }
 }
