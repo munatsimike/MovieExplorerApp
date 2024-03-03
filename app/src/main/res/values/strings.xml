@@ -90,4 +90,6 @@
             "total_results":798873
         }</string>
 
+    <string name="poster_image_desc"> movie poster image</string>
+    <string name="image_size_w500">"w500"</string>
 </resources>

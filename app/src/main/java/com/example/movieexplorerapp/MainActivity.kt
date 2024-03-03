@@ -3,6 +3,7 @@ package com.example.movieexplorerapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -25,8 +26,10 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    val movieViewModel: MovieViewModel  = hiltViewModel()
+                    val movieViewModel: MovieViewModel = hiltViewModel()
+                    Box {
                         Main.Screen(movieViewModel)
+                    }
                 }
             }
         }

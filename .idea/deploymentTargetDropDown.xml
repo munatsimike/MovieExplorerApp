@@ -2,19 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="MovieDaoTest">
+      <entry key="MoviePaginationMetaDataDaoTest">
         <State />
       </entry>
-      <entry key="MovieServiceTest">
+      <entry key="MoviePaginationMetaDataDaoTest (1)">
         <State />
       </entry>
       <entry key="app">
         <State />
       </entry>
-      <entry key="should_handle_empty_list()">
+      <entry key="should_Insert_Fetch_Movie_Pagination_meta_Data()">
         <State />
       </entry>
-      <entry key="should_insert_and_fetch_discover_movie_object_from_database()">
+      <entry key="should_Insert_Fetch_Movie_Pagination_meta_Data() (1)">
+        <State />
+      </entry>
+      <entry key="should_return_empty_list_if_db_is_empty()">
         <State />
       </entry>
     </value>
