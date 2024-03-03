@@ -3,7 +3,7 @@ package com.example.movieexplorerapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
-import com.example.movieexplorerapp.data.local.database.TEST_DB_NAME
+import com.example.movieexplorerapp.data.local.database.TEST_DB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 class TestDatabaseModule {
     @Singleton
     @Provides
-    @Named(TEST_DB_NAME)
+    @Named(TEST_DB)
     fun provideTestDatabase(@ApplicationContext context: Context): LocalMovieDatabase =
         Room.inMemoryDatabaseBuilder(context = context, LocalMovieDatabase::class.java)
             .allowMainThreadQueries()

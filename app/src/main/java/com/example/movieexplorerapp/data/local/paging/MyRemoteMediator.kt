@@ -110,7 +110,7 @@ class MyRemoteMediator @Inject constructor(
             apiResponse.let { data ->
                 val mapResult = mapMovie(data.results, movieCategory)
                 val paginationMetadata =
-                    MoviePaginationMetadata(movieCategory.name, data.page, data.totalPages)
+                    MoviePaginationMetadata(movieCategory, data.page, data.totalPages)
                 localMovieRepo.insertMovies(mapResult)
                 paginationMetadataDao.insertPagingMetaData(paginationMetadata)
             }

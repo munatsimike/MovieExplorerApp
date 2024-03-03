@@ -51,7 +51,7 @@ class MovieServiceTest {
     fun success_call_should_return_a_list_of_movies() {
         val movieResponse = sampleMovieJsonApiResponse()
         val response: Response<MovieAPIResponseImp> =
-            httpResponse(movieResponse) { movieService.exploreAllMovies() }
+            httpResponse(movieResponse) { movieService.exploreAllMovies(1) }
         validateApiResponse(response, 4)
     }
 
@@ -59,7 +59,7 @@ class MovieServiceTest {
     fun success_call_should_return_upcoming_movies() {
         val movieResponse = sampleMovieJsonResponseWithDateRange()
         val response: Response<MovieAPIResponseWithDateImp> =
-            httpResponse(movieResponse) { movieService.getUpcomingMovies() }
+            httpResponse(movieResponse) { movieService.getUpcomingMovies(1) }
         validateApiResponse(response, 5)
     }
 
@@ -67,7 +67,7 @@ class MovieServiceTest {
     fun success_call_should_return_popular_movies() {
         val movieResponse = sampleMovieJsonApiResponse()
         val response: Response<MovieAPIResponseImp> =
-            httpResponse(movieResponse) { movieService.getPopularMovies() }
+            httpResponse(movieResponse) { movieService.getPopularMovies(1) }
         validateApiResponse(response, 4)
     }
 
@@ -75,7 +75,7 @@ class MovieServiceTest {
     fun success_call_should_return_now_playing_movies() {
         val movieResponse = sampleMovieJsonResponseWithDateRange()
         val response: Response<MovieAPIResponseWithDateImp> =
-            httpResponse(movieResponse) { movieService.getNowPlayingMovies() }
+            httpResponse(movieResponse) { movieService.getNowPlayingMovies(1) }
         validateApiResponse(response, 5)
     }
 
@@ -83,7 +83,7 @@ class MovieServiceTest {
     fun success_call_should_return_top_rated_movies() {
         val movieResponse = sampleMovieJsonApiResponse()
         val response: Response<MovieAPIResponseImp> =
-            httpResponse(movieResponse) { movieService.getTopRatedMovies() }
+            httpResponse(movieResponse) { movieService.getTopRatedMovies(1) }
         validateApiResponse(response, 4)
     }
 

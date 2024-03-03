@@ -7,6 +7,14 @@ import com.example.movieexplorerapp.data.local.database.PAGINATION_META_DATA
 
 @Entity(tableName = PAGINATION_META_DATA)
 class MoviePaginationMetadata(
-    @PrimaryKey val id: String,
-    val page: Int, val totalPages: Int
-)
+    @PrimaryKey val id: MovieCategory, val page: Int, val totalPages: Int
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as MoviePaginationMetadata
+        return id == other.id
+    }
+
+
+}

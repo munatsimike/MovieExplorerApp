@@ -1,12 +1,12 @@
-package com.example.movieexplorerapp.data.local.database
+package com.example.movieexplorerapp.data.local.database.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
 import com.example.movieexplorerapp.data.local.dao.MovieDao
+import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
+import com.example.movieexplorerapp.data.local.database.TEST_DB
 import com.example.movieexplorerapp.data.local.model.MovieCategory
 import com.example.movieexplorerapp.data.local.model.MovieEntity
-import com.example.movieexplorerapp.data.remote.dto.Movie
-import com.example.movieexplorerapp.utils.test.TestUtils.listOfMovies
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -36,7 +36,7 @@ class MovieDaoTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @Inject
-    @Named(TEST_DB_NAME)
+    @Named(TEST_DB)
     lateinit var movieLocalDatabase: LocalMovieDatabase
 
     @Inject

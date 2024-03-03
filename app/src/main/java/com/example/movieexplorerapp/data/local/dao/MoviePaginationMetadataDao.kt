@@ -17,5 +17,8 @@ interface MoviePaginationMetadataDao {
 
     @Query("DELETE FROM $PAGINATION_META_DATA WHERE id =:id")
     suspend fun deleteMovies(id: String)
+
+    @Query("DELETE FROM $PAGINATION_META_DATA")
+    suspend fun clearAll()
 }
 
