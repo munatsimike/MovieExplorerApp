@@ -1,9 +1,9 @@
-package com.example.movieexplorerapp.data.local.model
+package com.example.movieexplorerapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.movieexplorerapp.data.local.database.MOVIE_ENTITY
-import com.example.movieexplorerapp.data.remote.dto.Movie
+import com.example.movieexplorerapp.data.MOVIE_ENTITY
+import com.example.movieexplorerapp.data.model.dto.Movie
 
 /**
  * This class defines objects that will be saved to the database and displayed to the user.

@@ -2,8 +2,8 @@ package com.example.movieexplorerapp.data.local.repository
 
 import androidx.paging.PagingData
 import com.example.movieexplorerapp.data.common.MovieRepository
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

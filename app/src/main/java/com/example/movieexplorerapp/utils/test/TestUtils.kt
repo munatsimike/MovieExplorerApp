@@ -1,6 +1,6 @@
 package com.example.movieexplorerapp.utils.test
 
-import com.example.movieexplorerapp.data.remote.dto.Movie
+import com.example.movieexplorerapp.data.model.dto.Movie
 
 object TestUtils {
     fun sampleMovieJsonApiResponse(): String =

@@ -1,8 +1,8 @@
 package com.example.movieexplorerapp.data.local.dao
 
 import androidx.paging.PagingSource
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 
 interface BaseMovieDao {
     suspend fun insertMovies(movies: List<MovieEntity>)

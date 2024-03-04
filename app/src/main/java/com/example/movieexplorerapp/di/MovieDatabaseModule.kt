@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
 import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
-import com.example.movieexplorerapp.data.local.database.DB_NAME
+import com.example.movieexplorerapp.data.DB_NAME
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import dagger.Module
 import dagger.Provides

@@ -5,8 +5,8 @@ import com.example.movieexplorerapp.data.dao.FakeMovieDao
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
 import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
 import com.google.common.truth.Truth.assertThat
 import io.mockk.mockk

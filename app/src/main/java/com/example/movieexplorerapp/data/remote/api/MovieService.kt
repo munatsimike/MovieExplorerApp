@@ -1,7 +1,7 @@
 package com.example.movieexplorerapp.data.remote.api
 
-import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseImp
-import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
+import com.example.movieexplorerapp.data.model.dto.MovieAPIResponseImp
+import com.example.movieexplorerapp.data.model.dto.MovieAPIResponseWithDateImp
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

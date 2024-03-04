@@ -3,11 +3,12 @@ package com.example.movieexplorerapp.data.local.preferences
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EncryptedPreferenceManager @Inject constructor(val context: Context) {
+class EncryptedPreferenceManager @Inject constructor(@ApplicationContext val context: Context) {
     // Using AndroidX Security library to generate or retrieve a master key alias
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 

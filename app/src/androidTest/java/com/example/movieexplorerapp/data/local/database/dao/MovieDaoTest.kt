@@ -4,9 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
 import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
-import com.example.movieexplorerapp.data.local.database.TEST_DB
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.TEST_DB
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

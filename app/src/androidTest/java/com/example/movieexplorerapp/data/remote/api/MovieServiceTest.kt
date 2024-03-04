@@ -1,8 +1,8 @@
 package com.example.movieexplorerapp.data.remote.api
 
-import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
-import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseImp
-import com.example.movieexplorerapp.data.remote.dto.MovieAPIResponseWithDateImp
+import com.example.movieexplorerapp.data.model.dto.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.model.dto.MovieAPIResponseImp
+import com.example.movieexplorerapp.data.model.dto.MovieAPIResponseWithDateImp
 import com.example.movieexplorerapp.utils.test.TestUtils.sampleMovieJsonApiResponse
 import com.example.movieexplorerapp.utils.test.TestUtils.sampleMovieJsonResponseWithDateRange
 import com.google.common.truth.Truth.assertThat

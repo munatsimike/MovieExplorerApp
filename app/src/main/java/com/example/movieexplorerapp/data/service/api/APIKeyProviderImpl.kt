@@ -1,5 +1,6 @@
-package com.example.movieexplorerapp.data.remote.api.apikey
+package com.example.movieexplorerapp.data.service.api
 
+import com.example.movieexplorerapp.data.model.APIKey
 import com.example.movieexplorerapp.data.local.preferences.EncryptedPreferenceManager
 import javax.inject.Inject
 
@@ -7,7 +8,8 @@ import javax.inject.Inject
  * This class provides functionality to securely store and retrieve an API key using encrypted SharedPreferences.
  */
 
-class APIKeyProviderImpl @Inject constructor(private val encryptedPreferenceManager: EncryptedPreferenceManager) : APIKeyProvider {
+class APIKeyProviderImpl @Inject constructor(private val encryptedPreferenceManager: EncryptedPreferenceManager) :
+    APIKeyProvider {
     private val storageKey = "api_key"
 
     override fun getKey(): APIKey {

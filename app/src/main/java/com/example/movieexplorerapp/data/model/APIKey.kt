@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.data.remote.api.apikey
+package com.example.movieexplorerapp.data.model
 
 /**
  * This class stores the api key

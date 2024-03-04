@@ -5,9 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movieexplorerapp.data.local.database.MOVIE_ENTITY
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.MOVIE_ENTITY
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 
 /**
  * MovieDao contains suspending functions to interact with the local Room database.

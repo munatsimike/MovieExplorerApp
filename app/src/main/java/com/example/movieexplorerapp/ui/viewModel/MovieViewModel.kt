@@ -1,10 +1,10 @@
 package com.example.movieexplorerapp.ui.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.movieexplorerapp.data.local.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepoImp
-import com.example.movieexplorerapp.data.remote.api.apikey.APIKey
-import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyProvider
+import com.example.movieexplorerapp.data.model.APIKey
+import com.example.movieexplorerapp.data.service.api.APIKeyProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

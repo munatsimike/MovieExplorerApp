@@ -8,8 +8,8 @@ import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.converter.ListOfIntegersConverter
 import com.example.movieexplorerapp.data.local.database.converter.ListOfMoviesConverter
 import com.example.movieexplorerapp.data.local.database.converter.MovieDateRangeConverter
-import com.example.movieexplorerapp.data.local.model.MovieEntity
-import com.example.movieexplorerapp.data.local.model.MoviePaginationMetadata
+import com.example.movieexplorerapp.data.model.MovieEntity
+import com.example.movieexplorerapp.data.model.MoviePaginationMetadata
 
 @Database(
     entities = [

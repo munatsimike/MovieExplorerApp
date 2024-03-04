@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movieexplorerapp.data.local.database.PAGINATION_META_DATA
-import com.example.movieexplorerapp.data.local.model.MoviePaginationMetadata
+import com.example.movieexplorerapp.data.PAGINATION_META_DATA
+import com.example.movieexplorerapp.data.model.MoviePaginationMetadata
 
 @Dao
 interface MoviePaginationMetadataDao {

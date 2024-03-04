@@ -3,8 +3,8 @@ package com.example.movieexplorerapp.data.dao
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 
 class FakeMovieDao : BaseMovieDao {
     private val allMovies = mutableListOf<MovieEntity>()

@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.data.remote.dto
+package com.example.movieexplorerapp.data.model.dto
 
 import com.squareup.moshi.Json
 /**

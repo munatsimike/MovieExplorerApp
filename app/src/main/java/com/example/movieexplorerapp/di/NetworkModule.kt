@@ -1,19 +1,17 @@
 package com.example.movieexplorerapp.di
 
-import android.content.Context
 import com.example.movieexplorerapp.BuildConfig
 import com.example.movieexplorerapp.data.local.preferences.EncryptedPreferenceManager
 import com.example.movieexplorerapp.data.remote.api.Constants.BASE_URL
 import com.example.movieexplorerapp.data.remote.api.MovieService
-import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyInterceptor
-import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyProvider
-import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyProviderImpl
+import com.example.movieexplorerapp.data.service.api.APIKeyInterceptor
+import com.example.movieexplorerapp.data.service.api.APIKeyProvider
+import com.example.movieexplorerapp.data.service.api.APIKeyProviderImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

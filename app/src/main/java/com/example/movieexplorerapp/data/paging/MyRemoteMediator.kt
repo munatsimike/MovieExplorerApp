@@ -7,13 +7,13 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
-import com.example.movieexplorerapp.data.local.model.MovieCategory
-import com.example.movieexplorerapp.data.local.model.MovieEntity
-import com.example.movieexplorerapp.data.local.model.MovieMapper
-import com.example.movieexplorerapp.data.local.model.MoviePaginationMetadata
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
+import com.example.movieexplorerapp.data.model.MovieMapper
+import com.example.movieexplorerapp.data.model.MoviePaginationMetadata
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
-import com.example.movieexplorerapp.data.remote.dto.BaseMovieApiResponse
-import com.example.movieexplorerapp.data.remote.dto.Movie
+import com.example.movieexplorerapp.data.model.dto.BaseMovieApiResponse
+import com.example.movieexplorerapp.data.model.dto.Movie
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
 import javax.inject.Inject
 

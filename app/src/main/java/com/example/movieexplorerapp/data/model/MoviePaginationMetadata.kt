@@ -1,8 +1,8 @@
-package com.example.movieexplorerapp.data.local.model
+package com.example.movieexplorerapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.movieexplorerapp.data.local.database.PAGINATION_META_DATA
+import com.example.movieexplorerapp.data.PAGINATION_META_DATA
 
 
 @Entity(tableName = PAGINATION_META_DATA)

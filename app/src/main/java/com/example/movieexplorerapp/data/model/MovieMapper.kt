@@ -1,6 +1,6 @@
-package com.example.movieexplorerapp.data.local.model
+package com.example.movieexplorerapp.data.model
 
-import com.example.movieexplorerapp.data.remote.dto.Movie
+import com.example.movieexplorerapp.data.model.dto.Movie
 
 
 /**

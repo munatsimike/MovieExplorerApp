@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.data.local.model
+package com.example.movieexplorerapp.data.model
 
 enum class MovieCategory  {
     Popular,
