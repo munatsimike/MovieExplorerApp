@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.data.local.paging
+package com.example.movieexplorerapp.data.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.RemoteMediator

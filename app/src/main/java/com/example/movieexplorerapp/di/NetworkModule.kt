@@ -2,6 +2,7 @@ package com.example.movieexplorerapp.di
 
 import android.content.Context
 import com.example.movieexplorerapp.BuildConfig
+import com.example.movieexplorerapp.data.local.preferences.EncryptedPreferenceManager
 import com.example.movieexplorerapp.data.remote.api.Constants.BASE_URL
 import com.example.movieexplorerapp.data.remote.api.MovieService
 import com.example.movieexplorerapp.data.remote.api.apikey.APIKeyInterceptor
@@ -26,15 +27,15 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAPIkey(@ApplicationContext context: Context): APIKeyProvider {
-        return APIKeyProviderImpl(context)
+    fun provideAPIkey(manager: EncryptedPreferenceManager): APIKeyProvider {
+        return APIKeyProviderImpl(manager)
     }
 
     @Singleton
     @Provides
     fun provideOkHttpClient(apiKeyProvider: APIKeyProvider): OkHttpClient =
         OkHttpClient().newBuilder()
-            .addInterceptor(APIKeyInterceptor(apiKeyProvider.getKey().key)).also { client ->
+            .addInterceptor(APIKeyInterceptor(apiKeyProvider.getKey().value)).also { client ->
 
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()

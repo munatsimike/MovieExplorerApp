@@ -24,8 +24,8 @@ class MovieViewModel @Inject constructor(
 
     init {
         val key = apiKeyProvider.getKey()
-        if (key.key == "")
-            apiKeyProvider.updateKey(APIKey(key = apiKey))
+        if (key.value == "")
+            apiKeyProvider.updateKey(APIKey(value = apiKey))
     }
 }
 

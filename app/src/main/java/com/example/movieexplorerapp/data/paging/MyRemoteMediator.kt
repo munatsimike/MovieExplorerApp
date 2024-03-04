@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.data.local.paging
+package com.example.movieexplorerapp.data.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -62,8 +62,8 @@ class MyRemoteMediator @Inject constructor(
 
             val response = getMovies(movieCategory, page)
             saveMovies(response, loadType)
-
             return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
+
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
         }
@@ -115,6 +115,10 @@ class MyRemoteMediator @Inject constructor(
                 paginationMetadataDao.insertPagingMetaData(paginationMetadata)
             }
         }
+    }
+
+    private suspend fun shouldFetch(): Boolean {
+        return false
     }
 }
 

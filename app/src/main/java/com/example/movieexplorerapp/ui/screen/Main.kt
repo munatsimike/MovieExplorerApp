@@ -61,7 +61,8 @@ object Main {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(movies.itemSnapshotList) { movie ->
+            items(movies.itemSnapshotList) {
+                movie ->
                 if (movie != null) {
                     Row {
                         Text(text = movie.title)

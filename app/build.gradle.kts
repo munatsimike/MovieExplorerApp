@@ -142,6 +142,9 @@ dependencies {
     //shared preferences
     implementation("androidx.security:security-crypto:1.0.0")
 
+    //data store
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
     androidTestImplementation ("androidx.paging:paging-testing:3.2.1")
     testImplementation ("androidx.paging:paging-testing:3.2.1")
 
