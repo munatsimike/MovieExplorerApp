@@ -22,7 +22,7 @@ class LastFetchTimeProvider @Inject constructor(private val manager: PreferenceM
      */
     fun getLastFetchTime(): Flow<LastFetchTime> {
         return manager.fetchData(LAST_FETCH_TIME).map {
-            LastFetchTime(it.toLong())
+            LastFetchTime(it.toLongOrNull())
         }
     }
 
@@ -31,6 +31,6 @@ class LastFetchTimeProvider @Inject constructor(private val manager: PreferenceM
      * @param lastFetchTime The LastFetchTime object containing the time to be saved.
      */
     suspend fun saveLastFetchTime(lastFetchTime: LastFetchTime) {
-        manager.saveData(LAST_FETCH_TIME, lastFetchTime.time.toString())
+        manager.saveData(LAST_FETCH_TIME, lastFetchTime.value.toString())
     }
 }
