@@ -5,6 +5,7 @@ import com.example.movieexplorerapp.data.model.LastFetchTime
 /**
  * Manages data fetching intervals and determines when to fetch movies from a remote server.
  */
+
 class DataRefreshController {
     // assigns the default fetch interval
     private var fetchInterval = DEFAULT_FETCH_INTERVAL
