@@ -7,14 +7,18 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
+import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
+import com.example.movieexplorerapp.data.model.LastFetchTime
 import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
 import com.example.movieexplorerapp.data.model.MovieMapper
 import com.example.movieexplorerapp.data.model.MoviePaginationMetadata
-import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
 import com.example.movieexplorerapp.data.model.dto.BaseMovieApiResponse
 import com.example.movieexplorerapp.data.model.dto.Movie
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
+import com.example.movieexplorerapp.data.service.DataRefreshController
+import com.example.movieexplorerapp.data.service.LastFetchTimeProvider
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -23,23 +27,30 @@ class MyRemoteMediator @Inject constructor(
     private val database: LocalMovieDatabase,
     private val remoteRepo: RemoteMovieRepository,
     private val movieCategory: MovieCategory,
-    private val paginationMetadataDao: MoviePaginationMetadataDao
+    private val paginationMetadataDao: MoviePaginationMetadataDao,
+    private val dataRefreshController: DataRefreshController,
+    private val lastFetchTimeProvider: LastFetchTimeProvider
 ) : RemoteMediator<Int, MovieEntity>() {
 
-    @OptIn(ExperimentalPagingApi::class)
     override suspend fun load(
         loadType: LoadType, state: PagingState<Int, MovieEntity>
     ): MediatorResult {
+
         try {
             val page = when (loadType) {
                 LoadType.REFRESH -> {
+                    val lastFetchTime = lastFetchTimeProvider.getLastFetchTime().first()
+                    if (!dataRefreshController.shouldFetchMovies(lastFetchTime)) {
+                        return MediatorResult.Success(endOfPaginationReached = false)
+                    }
+
                     // Start from the first page when refreshing
                     1
                 }
 
                 LoadType.PREPEND -> {
                     // Handle loading previous items if needed
-                    return MediatorResult.Success(endOfPaginationReached = true)
+                    return MediatorResult.Success(endOfPaginationReached = false)
                 }
 
                 LoadType.APPEND -> {
@@ -60,8 +71,10 @@ class MyRemoteMediator @Inject constructor(
                 }
             }
 
+
             val response = getMovies(movieCategory, page)
             saveMovies(response, loadType)
+            lastFetchTimeProvider.saveLastFetchTime(LastFetchTime(System.currentTimeMillis()))
             return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
 
         } catch (exception: Exception) {
@@ -115,10 +128,6 @@ class MyRemoteMediator @Inject constructor(
                 paginationMetadataDao.insertPagingMetaData(paginationMetadata)
             }
         }
-    }
-
-    private suspend fun shouldFetch(): Boolean {
-        return false
     }
 }
 

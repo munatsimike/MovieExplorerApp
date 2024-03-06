@@ -11,6 +11,8 @@ import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
 import com.example.movieexplorerapp.data.paging.MyRemoteMediator
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
+import com.example.movieexplorerapp.data.service.DataRefreshController
+import com.example.movieexplorerapp.data.service.LastFetchTimeProvider
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -23,7 +25,9 @@ class LocalMovieRepoImp @Inject constructor(
     private val movieDao: BaseMovieDao,
     private val remoteMovieRepoImp: RemoteMovieRepoImp,
     private val database: LocalMovieDatabase,
-    private val paginationMetadataDao: MoviePaginationMetadataDao
+    private val paginationMetadataDao: MoviePaginationMetadataDao,
+    private val dataRefreshController: DataRefreshController,
+    private val lastFetchTimeProvider: LastFetchTimeProvider
 ) : LocalMovieRepository {
     override suspend fun insertMovies(movies: List<MovieEntity>) {
         movieDao.insertMovies(movies)
@@ -38,7 +42,10 @@ class LocalMovieRepoImp @Inject constructor(
                 database,
                 remoteMovieRepoImp,
                 category,
-                paginationMetadataDao
+                paginationMetadataDao,
+                dataRefreshController,
+                lastFetchTimeProvider
+
             ),
             pagingSourceFactory = { movieDao.fetchMovies(category) }
         ).flow
