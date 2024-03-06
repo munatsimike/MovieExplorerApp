@@ -16,5 +16,4 @@ class MoviePaginationMetadata(
         return id == other.id
     }
 
-
 }

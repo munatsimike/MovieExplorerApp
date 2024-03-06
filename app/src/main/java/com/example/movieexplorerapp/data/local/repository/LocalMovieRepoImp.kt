@@ -11,6 +11,7 @@ import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
 import com.example.movieexplorerapp.data.paging.MyRemoteMediator
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
+import com.example.movieexplorerapp.data.service.DataCleanUpManager
 import com.example.movieexplorerapp.data.service.DataRefreshController
 import com.example.movieexplorerapp.data.service.LastFetchTimeProvider
 import kotlinx.coroutines.flow.Flow
@@ -27,7 +28,8 @@ class LocalMovieRepoImp @Inject constructor(
     private val database: LocalMovieDatabase,
     private val paginationMetadataDao: MoviePaginationMetadataDao,
     private val dataRefreshController: DataRefreshController,
-    private val lastFetchTimeProvider: LastFetchTimeProvider
+    private val lastFetchTimeProvider: LastFetchTimeProvider,
+    private val dataCleanUpManager: DataCleanUpManager,
 ) : LocalMovieRepository {
     override suspend fun insertMovies(movies: List<MovieEntity>) {
         movieDao.insertMovies(movies)
@@ -38,20 +40,19 @@ class LocalMovieRepoImp @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = 5),
             remoteMediator = MyRemoteMediator(
-                this,
                 database,
                 remoteMovieRepoImp,
                 category,
                 paginationMetadataDao,
                 dataRefreshController,
-                lastFetchTimeProvider
-
+                lastFetchTimeProvider,
+                dataCleanUpManager
             ),
             pagingSourceFactory = { movieDao.fetchMovies(category) }
         ).flow
     }
 
     override suspend fun deleteMovies(category: MovieCategory) {
-        movieDao.deleteMovies(category)
+        movieDao.deleteMoviesByCategory(category)
     }
 }

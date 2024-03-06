@@ -2,7 +2,7 @@ package com.example.movieexplorerapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.movieexplorerapp.data.MOVIE_ENTITY
+import com.example.movieexplorerapp.data.MOVIES
 import com.example.movieexplorerapp.data.model.dto.Movie
 
 /**
@@ -10,14 +10,13 @@ import com.example.movieexplorerapp.data.model.dto.Movie
  * It inherits the movie object fetched from the API but includes an additional category field to differentiate movies.
  * The overridden methods help compare movie object contents in test cases.
  */
-@Entity(tableName = MOVIE_ENTITY)
+@Entity(tableName = MOVIES)
 class MovieEntity(
     @PrimaryKey(autoGenerate = true)
-    val primaryKey: Int = 0,
+    override val id: Int,
     override val adult: Boolean,
     override val backdropPath: String,
     override val genreIds: List<Int>,
-    override val id: Int,
     override val originalLanguage: String,
     override val originalTitle: String,
     override val overview: String,

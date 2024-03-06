@@ -61,7 +61,7 @@ object Main {
     @Composable
     fun NowPlayingMovie(movies: LazyPagingItems<MovieEntity>) {
         LazyColumn(
-            modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxWidth(0.5f), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(movies.itemSnapshotList) {
                 movie ->

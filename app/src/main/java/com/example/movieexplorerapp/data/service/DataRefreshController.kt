@@ -10,7 +10,7 @@ import javax.inject.Inject
 class DataRefreshController @Inject constructor() {
     // assigns the default fetch interval
     private var fetchInterval = DEFAULT_FETCH_INTERVAL
-    private var userTriggeredRefresh = false
+    private var userTriggeredRefresh = true
 
     companion object {
         /**
@@ -36,7 +36,6 @@ class DataRefreshController @Inject constructor() {
         if (lastFetchTime.value == null || userTriggeredRefresh) {
             return true
         }
-
         val currentTime = System.currentTimeMillis()
         val timeSinceLastFetch = lastFetchTime.value.let { currentTime.minus(it) }
         return timeSinceLastFetch >= fetchInterval
@@ -46,5 +45,4 @@ class DataRefreshController @Inject constructor() {
     fun refreshData(refreshData: Boolean) {
         userTriggeredRefresh = refreshData
     }
-
 }

@@ -2,9 +2,9 @@ package com.example.movieexplorerapp.data.local.database.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
+import com.example.movieexplorerapp.data.TEST_DB
 import com.example.movieexplorerapp.data.local.dao.MovieDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
-import com.example.movieexplorerapp.data.TEST_DB
 import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
 import com.google.common.truth.Truth.assertThat
@@ -302,7 +302,103 @@ class MovieDaoTest {
 
 
     @Test
-    fun should_insert_and_fetch_empty_list ()= runTest {
+    fun should_count_movies_in_the_db() = runTest {
+        val movie1 = MovieEntity(
+            adult = false,
+            backdropPath = "/oBIQDKcqNxKckjugtmzpIIOgoc4.jpg",
+            genreIds = listOf(28, 53, 10752),
+            id = 969492,
+            originalLanguage = "en",
+            originalTitle = "Land of Bad",
+            overview = "When a Delta Force special ops mission goes terribly wrong, Air Force drone pilot Reaper has 48 hours to remedy what has devolved into a wild rescue operation. With no weapons and no communication other than the drone above, the ground mission suddenly becomes a full-scale battle when the team is discovered by the enemy.",
+            popularity = 2089.144,
+            posterPath = "/h3jYanWMEJq6JJsCopy1h7cT2Hs.jpg",
+            releaseDate = "2024-01-25",
+            title = "Land of Bad",
+            video = false,
+            voteAverage = 7.023,
+            voteCount = 199,
+            category = MovieCategory.UpComing // Placeholder for manual addition
+        )
+
+        val movie2 = MovieEntity(
+            adult = false,
+            backdropPath = "/nTPFkLUARmo1bYHfkfdNpRKgEOs.jpg",
+            genreIds = listOf(35, 10749),
+            id = 1072790,
+            originalLanguage = "en",
+            originalTitle = "Anyone But You",
+            overview = "After an amazing first date, Bea and Ben’s fiery attraction turns ice cold — until they find themselves unexpectedly reunited at a destination wedding in Australia. So they do what any two mature adults would do: pretend to be a couple.",
+            popularity = 1454.065,
+            posterPath = "/yRt7MGBElkLQOYRvLTT1b3B1rcp.jpg",
+            releaseDate = "2023-12-21",
+            title = "Anyone But You",
+            video = false,
+            voteAverage = 6.896,
+            voteCount = 684,
+            category = MovieCategory.UpComing // Placeholder for manual addition
+        )
+
+        val sampleData = listOf(movie1, movie2)
+        var movieCount = movieDao.getTotalMoviesCount()
+        assertThat(movieCount).isEqualTo(0)
+
+        movieDao.insertMovies(sampleData)
+        movieCount = movieDao.getTotalMoviesCount()
+        assertThat(movieCount).isEqualTo(2)
+    }
+
+
+    @Test
+    fun should_delete_excess_movies() = runTest {
+        val movie1 = MovieEntity(
+            adult = false,
+            backdropPath = "/oBIQDKcqNxKckjugtmzpIIOgoc4.jpg",
+            genreIds = listOf(28, 53, 10752),
+            id = 1,
+            originalLanguage = "en",
+            originalTitle = "Land of Bad",
+            overview = "When a Delta Force special ops mission goes terribly wrong, Air Force drone pilot Reaper has 48 hours to remedy what has devolved into a wild rescue operation. With no weapons and no communication other than the drone above, the ground mission suddenly becomes a full-scale battle when the team is discovered by the enemy.",
+            popularity = 2089.144,
+            posterPath = "/h3jYanWMEJq6JJsCopy1h7cT2Hs.jpg",
+            releaseDate = "2024-01-25",
+            title = "Land of Bad",
+            video = false,
+            voteAverage = 7.023,
+            voteCount = 199,
+            category = MovieCategory.UpComing // Placeholder for manual addition
+        )
+
+        val movie2 = MovieEntity(
+            adult = false,
+            backdropPath = "/nTPFkLUARmo1bYHfkfdNpRKgEOs.jpg",
+            genreIds = listOf(35, 10749),
+            id = 2,
+            originalLanguage = "en",
+            originalTitle = "Anyone But You",
+            overview = "After an amazing first date, Bea and Ben’s fiery attraction turns ice cold — until they find themselves unexpectedly reunited at a destination wedding in Australia. So they do what any two mature adults would do: pretend to be a couple.",
+            popularity = 1454.065,
+            posterPath = "/yRt7MGBElkLQOYRvLTT1b3B1rcp.jpg",
+            releaseDate = "2023-12-21",
+            title = "Anyone But You",
+            video = false,
+            voteAverage = 6.896,
+            voteCount = 684,
+            category = MovieCategory.UpComing // Placeholder for manual addition
+        )
+
+        val sampleData = listOf(movie1, movie2)
+        movieDao.insertMovies(sampleData)
+        var movieCount = movieDao.getTotalMoviesCount()
+        assertThat(movieCount).isEqualTo(2)
+
+        movieDao.cleanExcessMovies(1)
+        movieCount = movieDao.getTotalMoviesCount()
+        assertThat(movieCount).isEqualTo(1)
+    }
+
+    @Test
+    fun should_insert_and_fetch_empty_list() = runTest {
         val sampleData = listOf<MovieEntity>()
 
         movieDao.insertMovies(sampleData)

@@ -33,7 +33,7 @@ class FakeMovieDao : BaseMovieDao {
         }
     }
 
-    override suspend fun deleteMovies(category: MovieCategory) {
+    override suspend fun deleteMoviesByCategory(category: MovieCategory) {
         allMovies.removeIf { movie -> movie.category == category }
     }
 }

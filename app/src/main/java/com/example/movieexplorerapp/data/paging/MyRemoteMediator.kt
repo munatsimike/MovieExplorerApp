@@ -7,7 +7,6 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
-import com.example.movieexplorerapp.data.local.repository.LocalMovieRepository
 import com.example.movieexplorerapp.data.model.LastFetchTime
 import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
@@ -16,6 +15,7 @@ import com.example.movieexplorerapp.data.model.MoviePaginationMetadata
 import com.example.movieexplorerapp.data.model.dto.BaseMovieApiResponse
 import com.example.movieexplorerapp.data.model.dto.Movie
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepository
+import com.example.movieexplorerapp.data.service.DataCleanUpManager
 import com.example.movieexplorerapp.data.service.DataRefreshController
 import com.example.movieexplorerapp.data.service.LastFetchTimeProvider
 import kotlinx.coroutines.flow.first
@@ -23,13 +23,13 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class MyRemoteMediator @Inject constructor(
-    private val localMovieRepo: LocalMovieRepository,
     private val database: LocalMovieDatabase,
     private val remoteRepo: RemoteMovieRepository,
     private val movieCategory: MovieCategory,
     private val paginationMetadataDao: MoviePaginationMetadataDao,
     private val dataRefreshController: DataRefreshController,
-    private val lastFetchTimeProvider: LastFetchTimeProvider
+    private val lastFetchTimeProvider: LastFetchTimeProvider,
+    private val dataCleanUpManager: DataCleanUpManager
 ) : RemoteMediator<Int, MovieEntity>() {
 
     override suspend fun load(
@@ -71,12 +71,16 @@ class MyRemoteMediator @Inject constructor(
                 }
             }
 
-
+            //fetch movies from API
             val response = getMovies(movieCategory, page)
+            // Save movies to room
             saveMovies(response, loadType)
+            //save fetch time. it will be used to determine the for next to fetch data to avoid fetching data everytime the app is opened
             lastFetchTimeProvider.saveLastFetchTime(LastFetchTime(System.currentTimeMillis()))
-            return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
+            // clean up excess movies from db if threshold has been exceed
+            dataCleanUpManager.cleanExcessMovies()
 
+            return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
         }
@@ -117,14 +121,14 @@ class MyRemoteMediator @Inject constructor(
     private suspend fun saveMovies(apiResponse: BaseMovieApiResponse, loadType: LoadType) {
         database.withTransaction {
             if (loadType == LoadType.REFRESH) {
-                localMovieRepo.deleteMovies(movieCategory)
+                database.movieDao.deleteMoviesByCategory(movieCategory)
             }
 
             apiResponse.let { data ->
                 val mapResult = mapMovie(data.results, movieCategory)
                 val paginationMetadata =
                     MoviePaginationMetadata(movieCategory, data.page, data.totalPages)
-                localMovieRepo.insertMovies(mapResult)
+                database.movieDao.insertMovies(mapResult)
                 paginationMetadataDao.insertPagingMetaData(paginationMetadata)
             }
         }
