@@ -10,7 +10,7 @@ import javax.inject.Inject
 class DataRefreshController @Inject constructor() {
     // assigns the default fetch interval
     private var fetchInterval = DEFAULT_FETCH_INTERVAL
-    private var userTriggeredRefresh = true
+    private var userTriggeredRefresh = false
 
     companion object {
         /**

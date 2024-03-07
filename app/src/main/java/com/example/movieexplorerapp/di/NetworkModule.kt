@@ -33,7 +33,8 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(apiKeyProvider: APIKeyProvider): OkHttpClient =
         OkHttpClient().newBuilder()
-            .addInterceptor(APIKeyInterceptor(apiKeyProvider.getKey().value)).also { client ->
+            .addInterceptor(APIKeyInterceptor(apiKeyProvider))
+            .also { client ->
 
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()

@@ -29,7 +29,7 @@ class MyRemoteMediator @Inject constructor(
     private val paginationMetadataDao: MoviePaginationMetadataDao,
     private val dataRefreshController: DataRefreshController,
     private val lastFetchTimeProvider: LastFetchTimeProvider,
-    private val dataCleanUpManager: DataCleanUpManager
+    private val dataCleanUpManager: DataCleanUpManager,
 ) : RemoteMediator<Int, MovieEntity>() {
 
     override suspend fun load(
@@ -77,7 +77,7 @@ class MyRemoteMediator @Inject constructor(
             saveMovies(response, loadType)
             //save fetch time. it will be used to determine the for next to fetch data to avoid fetching data everytime the app is opened
             lastFetchTimeProvider.saveLastFetchTime(LastFetchTime(System.currentTimeMillis()))
-            // clean up excess movies from db if threshold has been exceed
+            //clean up excess movies from db if threshold has been exceed
             dataCleanUpManager.cleanExcessMovies()
 
             return MediatorResult.Success(endOfPaginationReached = response.page == response.totalPages)

@@ -18,7 +18,7 @@ class DataCleanUpManager @Inject constructor(private val movieDao: MovieDao) {
 
     //Cleans up excess movies from the database if the total count exceeds the defined threshold.
     suspend fun cleanExcessMovies() {
-        val totalMovieCount = movieDao.getTotalMoviesCount()
+        val totalMovieCount = movieDao.countMovieEntries()
         if (totalMovieCount > movieCountThreshold) {
             val excessMovieCount = totalMovieCount - movieCountThreshold
             movieDao.cleanExcessMovies(excessMovieCount)

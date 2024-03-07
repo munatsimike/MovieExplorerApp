@@ -1,32 +1,63 @@
 package com.example.movieexplorerapp.ui.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.movieexplorerapp.data.model.MovieCategory
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import com.example.movieexplorerapp.BuildConfig
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepoImp
 import com.example.movieexplorerapp.data.model.APIKey
+import com.example.movieexplorerapp.data.model.MovieCategory
+import com.example.movieexplorerapp.data.model.MovieEntity
 import com.example.movieexplorerapp.data.service.api.APIKeyProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val apiKey =
-    "2b36d6fc58fa055e7f5ca4dc10684209"// this will be removed its for development only
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class MovieViewModel @Inject constructor(
     private val localRepo: LocalMovieRepoImp,
-    apiKeyProvider: APIKeyProvider
+    private val apiKeyProvider: APIKeyProvider
 ) : ViewModel() {
-    val discover = localRepo.fetchMovies(MovieCategory.Discover)
-    val popular = localRepo.fetchMovies(MovieCategory.Popular)
-    val topRated = localRepo.fetchMovies(MovieCategory.TopRated)
-    val upComing = localRepo.fetchMovies(MovieCategory.UpComing)
-    val nowPlaying = localRepo.fetchMovies(MovieCategory.NowPlaying)
+    private val apiKeyReady = MutableStateFlow(false)
+    val discover: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.Discover)
+    val popular: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.Popular)
+    val  topRated: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.TopRated)
+    val  upComing: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.UpComing)
+    val  nowPlaying: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.NowPlaying)
 
     init {
-        val key = apiKeyProvider.getKey()
-        if (key.value == "")
-            apiKeyProvider.updateKey(APIKey(value = apiKey))
+        viewModelScope.launch {
+            initializeApiKey()
+            apiKeyReady.value = true
+        }
     }
+
+    private fun setupMovieFlow(category: MovieCategory): Flow<PagingData<MovieEntity>> {
+        return apiKeyReady.filter { it }.flatMapLatest {
+            localRepo.fetchMovies(category)
+        }
+    }
+
+    private fun initializeApiKey() {
+        val key = apiKeyProvider.getKey()
+        if (key.value.isEmpty()) {
+            // Use a secure method to obtain the API key for development/production
+            val secureApiKey = getSecureApiKey()
+            apiKeyProvider.updateKey(APIKey(value = secureApiKey))
+        }
+    }
+
+    private fun getSecureApiKey(): String {
+        //retrieve the API key from Gradle properties
+        return BuildConfig.API_KEY
+    }
+
 }
 
 

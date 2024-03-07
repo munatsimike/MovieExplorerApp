@@ -23,7 +23,7 @@ interface MovieDao : BaseMovieDao {
     @Query("DELETE FROM $MOVIES WHERE category =:category")
     override suspend fun deleteMoviesByCategory(category: MovieCategory)
     @Query("SELECT COUNT(*) FROM $MOVIES")
-    suspend fun getTotalMoviesCount(): Int
+    suspend fun countMovieEntries(): Int
     @Query("DELETE FROM movies WHERE id  IN (SELECT id FROM movies ORDER BY id ASC LIMIT :excessMovieCount)")
     suspend fun cleanExcessMovies(excessMovieCount: Int)
 

@@ -340,11 +340,11 @@ class MovieDaoTest {
         )
 
         val sampleData = listOf(movie1, movie2)
-        var movieCount = movieDao.getTotalMoviesCount()
+        var movieCount = movieDao.countMovieEntries()
         assertThat(movieCount).isEqualTo(0)
 
         movieDao.insertMovies(sampleData)
-        movieCount = movieDao.getTotalMoviesCount()
+        movieCount = movieDao.countMovieEntries()
         assertThat(movieCount).isEqualTo(2)
     }
 
@@ -389,11 +389,11 @@ class MovieDaoTest {
 
         val sampleData = listOf(movie1, movie2)
         movieDao.insertMovies(sampleData)
-        var movieCount = movieDao.getTotalMoviesCount()
+        var movieCount = movieDao.countMovieEntries()
         assertThat(movieCount).isEqualTo(2)
 
         movieDao.cleanExcessMovies(1)
-        movieCount = movieDao.getTotalMoviesCount()
+        movieCount = movieDao.countMovieEntries()
         assertThat(movieCount).isEqualTo(1)
     }
 

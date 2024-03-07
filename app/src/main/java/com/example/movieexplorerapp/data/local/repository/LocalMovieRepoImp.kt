@@ -46,7 +46,7 @@ class LocalMovieRepoImp @Inject constructor(
                 paginationMetadataDao,
                 dataRefreshController,
                 lastFetchTimeProvider,
-                dataCleanUpManager
+                dataCleanUpManager,
             ),
             pagingSourceFactory = { movieDao.fetchMovies(category) }
         ).flow
