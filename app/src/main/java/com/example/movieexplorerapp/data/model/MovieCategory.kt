@@ -1,6 +1,6 @@
 package com.example.movieexplorerapp.data.model
 
-enum class MovieCategory  {
+enum class MovieCategory {
     Popular,
     Discover,
     UpComing,

@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 class ListOfIntegersConverter {
     @TypeConverter
     fun fromListToString(list: List<Int>): String = Json.encodeToString(list)
+
     @TypeConverter
-    fun fromStringToList(string: String):List<Int> = Json.decodeFromString(string)
+    fun fromStringToList(string: String): List<Int> = Json.decodeFromString(string)
 }

@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class EncryptedPreferenceManager @Inject constructor(@ApplicationContext val context: Context) {
     // Using AndroidX Security library to generate or retrieve a master key alias
-    private val masterKeyAlias by lazy {  MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)}
+    private val masterKeyAlias by lazy { MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC) }
 
     // Creating EncryptedSharedPreferences instance with AES encryption
     private val sharedPreferences = EncryptedSharedPreferences.create(
@@ -25,15 +25,15 @@ class EncryptedPreferenceManager @Inject constructor(@ApplicationContext val con
 
     private val editor = sharedPreferences.edit()
     private val cache: MutableMap<String, String> = mutableMapOf()
-   suspend fun getData(key: String): String = withContext(Dispatchers.IO){
+    suspend fun getData(key: String): String = withContext(Dispatchers.IO) {
         // First, attempt to get the value from the cache
-       return@withContext cache[key] ?: sharedPreferences.getString(key, null)?.also {
-           // If not in cache, read from SharedPreferences and cache it
-           cache[key] = it
-       } ?: ""
+        return@withContext cache[key] ?: sharedPreferences.getString(key, null)?.also {
+            // If not in cache, read from SharedPreferences and cache it
+            cache[key] = it
+        } ?: ""
     }
 
-    suspend fun saveUpdate(key: String, value: String)= withContext(Dispatchers.IO) {
+    suspend fun saveUpdate(key: String, value: String) = withContext(Dispatchers.IO) {
 
         // Update the cache as well as the SharedPreferences
         cache[key] = value

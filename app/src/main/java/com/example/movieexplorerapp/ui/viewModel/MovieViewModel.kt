@@ -16,10 +16,10 @@ class MovieViewModel @Inject constructor(
     private val localRepo: LocalMovieRepoImp,
 ) : ViewModel() {
     val discover = localRepo.fetchMovies(MovieCategory.Discover)
-    val popular: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.Popular)
-    val topRated: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.TopRated)
-    val upComing: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.UpComing)
-    val nowPlaying: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.NowPlaying)
+    val popular: Flow<PagingData<MovieEntity>> = localRepo.fetchMovies(MovieCategory.Popular)
+    val topRated: Flow<PagingData<MovieEntity>> = localRepo.fetchMovies(MovieCategory.TopRated)
+    val upComing: Flow<PagingData<MovieEntity>> = localRepo.fetchMovies(MovieCategory.UpComing)
+    val nowPlaying: Flow<PagingData<MovieEntity>> = localRepo.fetchMovies(MovieCategory.NowPlaying)
 }
 
 

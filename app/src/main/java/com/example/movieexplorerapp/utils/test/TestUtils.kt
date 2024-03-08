@@ -4,7 +4,7 @@ import com.example.movieexplorerapp.data.model.dto.Movie
 
 object TestUtils {
     fun sampleMovieJsonApiResponse(): String =
-       """ {
+        """ {
             "page":1,
             "results":[
             {

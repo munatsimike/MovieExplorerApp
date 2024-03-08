@@ -32,6 +32,7 @@ class APIKeyProviderImpl @Inject constructor(private val encryptedPreferenceMana
         cachedKey = APIKey(value = stringKey)
         return cachedKey!!
     }
+
     /**
      * Updates the stored API key in SharedPreferences.
      * To delete an API key, pass an empty APIKey object.

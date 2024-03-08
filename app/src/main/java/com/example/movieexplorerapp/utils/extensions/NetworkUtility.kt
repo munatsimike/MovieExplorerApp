@@ -25,7 +25,10 @@ object NetworkUtility {
         try {
             return gson.fromJson(this, object : TypeToken<T>() {}.type)
         } catch (e: Exception) {
-            throw IllegalArgumentException("Error parsing JSON for type ${T::class.java.simpleName}: ${e.message}", e)
+            throw IllegalArgumentException(
+                "Error parsing JSON for type ${T::class.java.simpleName}: ${e.message}",
+                e
+            )
         }
     }
 

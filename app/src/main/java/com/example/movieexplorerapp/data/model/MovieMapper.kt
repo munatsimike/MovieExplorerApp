@@ -4,10 +4,10 @@ import com.example.movieexplorerapp.data.model.dto.Movie
 
 
 /**
-* This class is responsible for converting a Movie object into a MovieEntity object.
-* A Movie object serves as a data transfer object (DTO) representing data fetched from an external source or API.
-* A MovieEntity object is designed for database storage, extending the Movie data model with additional database-related functionalities, including a category field to differentiate movies based on predefined categories.
-*/
+ * This class is responsible for converting a Movie object into a MovieEntity object.
+ * A Movie object serves as a data transfer object (DTO) representing data fetched from an external source or API.
+ * A MovieEntity object is designed for database storage, extending the Movie data model with additional database-related functionalities, including a category field to differentiate movies based on predefined categories.
+ */
 class MovieMapper {
 
     companion object {

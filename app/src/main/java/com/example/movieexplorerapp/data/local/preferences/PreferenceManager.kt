@@ -12,13 +12,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
-* This preference manager is responsible for saving and retrieving key-value pairs as strings using Jetpack DataStore.
-* It currently saves the last fetch time, but it's capable of saving any string value.
-*/
+ * This preference manager is responsible for saving and retrieving key-value pairs as strings using Jetpack DataStore.
+ * It currently saves the last fetch time, but it's capable of saving any string value.
+ */
 @Singleton
 class PreferenceManager @Inject constructor(@ApplicationContext val context: Context) {
     // Creates a DataStore instance with the file name "appPreferences".
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("appPreferences")
+
     /**
      * Saves the provided data using the specified key.
      * @param key The key under which the value will be saved.

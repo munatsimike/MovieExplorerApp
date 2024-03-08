@@ -1,6 +1,7 @@
 package com.example.movieexplorerapp.data.model.dto
 
 import com.squareup.moshi.Json
+
 /**
  * This defines a movie response with the extra date range field.
  * This will be used by upcoming and now playing movie objects

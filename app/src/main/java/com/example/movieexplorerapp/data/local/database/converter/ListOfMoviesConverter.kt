@@ -9,11 +9,11 @@ import kotlinx.serialization.json.Json
 class ListOfMoviesConverter {
     @TypeConverter
     fun fromListToString(strList: List<Movie>): String {
-        return strList.let {  Json.encodeToString(strList)}
+        return strList.let { Json.encodeToString(strList) }
     }
 
     @TypeConverter
     fun fromStringToList(str: String): List<Movie> {
-        return str.let {  Json.decodeFromString(str)} ?: emptyList()
+        return str.let { Json.decodeFromString(str) } ?: emptyList()
     }
 }

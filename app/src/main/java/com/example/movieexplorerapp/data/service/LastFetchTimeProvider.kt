@@ -16,6 +16,7 @@ class LastFetchTimeProvider @Inject constructor(private val manager: PreferenceM
         // Key for accessing last fetch time in preferences
         private val LAST_FETCH_TIME = stringPreferencesKey("last_fetch_time")
     }
+
     /**
      * Retrieves the last fetched time as a Flow, allowing for asynchronous data retrieval.
      * This time is converted to a LastFetchTime object.

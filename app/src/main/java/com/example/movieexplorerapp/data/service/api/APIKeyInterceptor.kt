@@ -10,7 +10,7 @@ import okhttp3.Response
  *
  */
 class APIKeyInterceptor(private val apiKeyProvider: APIKeyProvider) : Interceptor {
-    private val apiKey by lazy { runBlocking{ apiKeyProvider.getKey() } }
+    private val apiKey by lazy { runBlocking { apiKeyProvider.getKey() } }
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
