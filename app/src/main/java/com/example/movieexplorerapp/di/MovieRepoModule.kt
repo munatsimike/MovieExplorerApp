@@ -18,6 +18,7 @@ object MovieRepoModule {
     fun provideRemoteMovieRepoImp(
         movieService: MovieService,
     ): RemoteMovieRepoImp = RemoteMovieRepoImp(movieService)
+
     @Singleton
     @Provides
     fun provideRemoteMovieRepo(

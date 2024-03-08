@@ -1,21 +1,13 @@
 package com.example.movieexplorerapp.ui.viewModel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.example.movieexplorerapp.BuildConfig
 import com.example.movieexplorerapp.data.local.repository.LocalMovieRepoImp
-import com.example.movieexplorerapp.data.model.APIKey
 import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
-import com.example.movieexplorerapp.data.service.api.APIKeyProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
