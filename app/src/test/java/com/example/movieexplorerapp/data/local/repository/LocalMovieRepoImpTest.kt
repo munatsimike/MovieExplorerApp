@@ -8,6 +8,9 @@ import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.model.MovieCategory
 import com.example.movieexplorerapp.data.model.MovieEntity
 import com.example.movieexplorerapp.data.remote.repo.RemoteMovieRepoImp
+import com.example.movieexplorerapp.data.service.DataCleanUpManager
+import com.example.movieexplorerapp.data.service.DataRefreshController
+import com.example.movieexplorerapp.data.service.LastFetchTimeProvider
 import com.google.common.truth.Truth.assertThat
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -24,7 +27,18 @@ class LocalMovieRepoImpTest {
         val database: LocalMovieDatabase = mockk()
         val movieDao: BaseMovieDao = FakeMovieDao()
         val paginationMetadataDao: MoviePaginationMetadataDao = mockk()
-        localMovieRepoImp = LocalMovieRepoImp(movieDao,remoteMovieRepoImp,database, paginationMetadataDao)
+        val dataRefreshController: DataRefreshController = mockk()
+        val lastFetchTimeProvider: LastFetchTimeProvider = mockk()
+        val dataCleanUpManager: DataCleanUpManager = mockk()
+        localMovieRepoImp = LocalMovieRepoImp(
+            movieDao,
+            remoteMovieRepoImp,
+            database,
+            paginationMetadataDao,
+            dataRefreshController,
+            lastFetchTimeProvider,
+            dataCleanUpManager
+        )
     }
 
     @Test

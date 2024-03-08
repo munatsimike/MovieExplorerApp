@@ -69,6 +69,12 @@ object Main {
             modifier = Modifier.fillMaxWidth(0.5f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            items(movies.itemSnapshotList) { movie ->
+                if (movie != null) {
+                    MovieItem(movie)
+                }
+            }
             movies.apply {
                 when (loadState.append) {
                     is LoadState.Loading -> {
@@ -80,11 +86,7 @@ object Main {
                     }
 
                     is LoadState.NotLoading -> {
-                        items(movies.itemSnapshotList) { movie ->
-                            if (movie != null) {
-                                MovieItem(movie)
-                            }
-                        }
+
                     }
                 }
             }
@@ -106,12 +108,12 @@ object Main {
 
     @Composable
     fun LoadingItem() {
-        // Display a circular progress indicator or similar
+        Text(text = "Loading.....")
     }
 
     @Composable
     fun RetryItem(retry: () -> Unit) {
-        // Display a retry button
+        retry()
     }
 
 

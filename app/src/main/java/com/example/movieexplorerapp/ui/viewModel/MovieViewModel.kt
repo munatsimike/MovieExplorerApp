@@ -24,27 +24,19 @@ class MovieViewModel @Inject constructor(
     private val localRepo: LocalMovieRepoImp,
     private val apiKeyProvider: APIKeyProvider
 ) : ViewModel() {
-    private val apiKeyReady = MutableStateFlow(false)
-    val discover: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.Discover)
-    val popular: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.Popular)
-    val  topRated: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.TopRated)
-    val  upComing: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.UpComing)
-    val  nowPlaying: Flow<PagingData<MovieEntity>> = setupMovieFlow(MovieCategory.NowPlaying)
+
+    val discover = localRepo.fetchMovies(MovieCategory.Discover)
+    val popular: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.Popular)
+    val topRated: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.TopRated)
+    val upComing: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.UpComing)
+    val nowPlaying: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.NowPlaying)
 
     init {
         viewModelScope.launch {
             initializeApiKey()
-            apiKeyReady.value = true
         }
     }
-
-    private fun setupMovieFlow(category: MovieCategory): Flow<PagingData<MovieEntity>> {
-        return apiKeyReady.filter { it }.flatMapLatest {
-            localRepo.fetchMovies(category)
-        }
-    }
-
-    private fun initializeApiKey() {
+    private suspend fun initializeApiKey() {
         val key = apiKeyProvider.getKey()
         if (key.value.isEmpty()) {
             // Use a secure method to obtain the API key for development/production
