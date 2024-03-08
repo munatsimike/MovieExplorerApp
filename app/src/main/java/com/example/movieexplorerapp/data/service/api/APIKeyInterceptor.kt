@@ -1,5 +1,6 @@
 package com.example.movieexplorerapp.data.service.api
 
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -9,7 +10,7 @@ import okhttp3.Response
  *
  */
 class APIKeyInterceptor(private val apiKeyProvider: APIKeyProvider) : Interceptor {
-    private val apiKey by lazy { apiKeyProvider.getKey() }
+    private val apiKey by lazy { runBlocking{ apiKeyProvider.getKey() } }
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 

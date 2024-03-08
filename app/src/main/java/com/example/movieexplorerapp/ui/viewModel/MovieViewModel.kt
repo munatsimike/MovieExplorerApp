@@ -22,34 +22,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(
     private val localRepo: LocalMovieRepoImp,
-    private val apiKeyProvider: APIKeyProvider
 ) : ViewModel() {
-
     val discover = localRepo.fetchMovies(MovieCategory.Discover)
     val popular: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.Popular)
     val topRated: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.TopRated)
     val upComing: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.UpComing)
     val nowPlaying: Flow<PagingData<MovieEntity>> =  localRepo.fetchMovies(MovieCategory.NowPlaying)
-
-    init {
-        viewModelScope.launch {
-            initializeApiKey()
-        }
-    }
-    private suspend fun initializeApiKey() {
-        val key = apiKeyProvider.getKey()
-        if (key.value.isEmpty()) {
-            // Use a secure method to obtain the API key for development/production
-            val secureApiKey = getSecureApiKey()
-            apiKeyProvider.updateKey(APIKey(value = secureApiKey))
-        }
-    }
-
-    private fun getSecureApiKey(): String {
-        //retrieve the API key from Gradle properties
-        return BuildConfig.API_KEY
-    }
-
 }
 
 

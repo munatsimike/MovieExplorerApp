@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,15 +25,16 @@ class EncryptedPreferenceManager @Inject constructor(@ApplicationContext val con
 
     private val editor = sharedPreferences.edit()
     private val cache: MutableMap<String, String> = mutableMapOf()
-    fun getData(key: String): String {
+   suspend fun getData(key: String): String = withContext(Dispatchers.IO){
         // First, attempt to get the value from the cache
-        return cache[key] ?: sharedPreferences.getString(key, null)?.also {
-            // If not in cache, read from SharedPreferences and cache it
-            cache[key] = it
-        } ?: ""
+       return@withContext cache[key] ?: sharedPreferences.getString(key, null)?.also {
+           // If not in cache, read from SharedPreferences and cache it
+           cache[key] = it
+       } ?: ""
     }
 
-    fun saveUpdate(key: String, value: String) {
+    suspend fun saveUpdate(key: String, value: String)= withContext(Dispatchers.IO) {
+
         // Update the cache as well as the SharedPreferences
         cache[key] = value
         editor.putString(key, value).apply()

@@ -1,5 +1,6 @@
 package com.example.movieexplorerapp.data.service.api
 
+import com.example.movieexplorerapp.BuildConfig
 import com.example.movieexplorerapp.data.model.APIKey
 import com.example.movieexplorerapp.data.local.preferences.EncryptedPreferenceManager
 import kotlinx.coroutines.flow.Flow
@@ -17,19 +18,29 @@ class APIKeyProviderImpl @Inject constructor(private val encryptedPreferenceMana
     private val storageKey = "api_key"
     private var cachedKey: APIKey? = null
 
-    override fun getKey(): APIKey{
-        if (cachedKey  == null) {
-            val stringKey = encryptedPreferenceManager.getData(storageKey)
-            cachedKey = APIKey(value = stringKey)
-        }
-        return cachedKey ?: APIKey()
-    }
+    override suspend fun getKey(): APIKey {
+        // Return the cached key if it exists
+        if (cachedKey != null) return cachedKey!!
 
+        // Fetch the key from encrypted storage
+        var stringKey = encryptedPreferenceManager.getData(storageKey)
+
+        // If the key doesn't exist in the encrypted storage, initialize it from BuildConfig or another secure source
+        if (stringKey.isEmpty()) {
+            stringKey = BuildConfig.API_KEY
+            // Save the initialized key in the encrypted storage for future use
+            encryptedPreferenceManager.saveUpdate(storageKey, stringKey)
+        }
+
+        // Cache and return the key
+        cachedKey = APIKey(value = stringKey)
+        return cachedKey!!
+    }
     /**
      * Updates the stored API key in SharedPreferences.
      * To delete an API key, pass an empty APIKey object.
      */
-    override fun updateKey(apiKey: APIKey) {
+    override suspend fun updateKey(apiKey: APIKey) {
         encryptedPreferenceManager.saveUpdate(storageKey, apiKey.value)
         cachedKey = apiKey
     }

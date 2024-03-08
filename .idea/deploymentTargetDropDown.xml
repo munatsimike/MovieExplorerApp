@@ -16,12 +16,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\munat\.android\avd\Pixel_3a_API_33.avd" />
+                  <value value="C:\Users\munat\.android\avd\Pixel_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-08T02:46:57.117198600Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-03-08T09:35:18.745077800Z" />
         </State>
       </entry>
       <entry key="should_Insert_Fetch_Movie_Pagination_meta_Data() (1)">

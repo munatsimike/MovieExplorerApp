@@ -51,7 +51,7 @@ object NetworkModule {
                 if (BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()
                     logger.setLevel(HttpLoggingInterceptor.Level.BODY)
-                    client.addInterceptor(logger)
+                    //client.addInterceptor(logger)
                 }
             }.build()
     }
@@ -72,5 +72,4 @@ object NetworkModule {
     fun provideMovieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
     }
-
 }
