@@ -4,5 +4,5 @@ import com.example.movieexplorerapp.data.model.APIKey
 
 interface APIKeyProvider {
     suspend fun getKey(): APIKey
-    suspend fun updateKey(apIkey: APIKey)
+    suspend fun updateKey(apiKey: APIKey)
 }
