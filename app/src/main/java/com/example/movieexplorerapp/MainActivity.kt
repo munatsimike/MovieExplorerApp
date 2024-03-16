@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             MovieExplorerAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.primary
                 ) {
                     val movieViewModel: MovieViewModel = hiltViewModel()
                     Box {
@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {

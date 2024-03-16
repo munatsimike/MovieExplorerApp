@@ -5,5 +5,6 @@ enum class MovieCategory {
     Discover,
     UpComing,
     NowPlaying,
-    TopRated
+    TopRated,
+
 }

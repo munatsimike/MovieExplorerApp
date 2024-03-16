@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.utils
+package com.example.movieexplorerapp.ui.components
 
 
 /**

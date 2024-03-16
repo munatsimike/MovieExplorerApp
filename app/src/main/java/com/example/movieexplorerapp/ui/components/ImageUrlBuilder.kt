@@ -1,4 +1,4 @@
-package com.example.movieexplorerapp.utils
+package com.example.movieexplorerapp.ui.components
 
 /**
  * This class builds a URL to fetch movie posters from the internet.
@@ -14,6 +14,6 @@ object ImageUrlBuilder {
      * @param imageSize The desired size of the image. Default is ExtraLarge.
      * @return The full URL string to fetch the image.
      */
-    fun getUrl(imgPath: String, imageSize: ImageSize = ImageSize.ExtraLarge): String =
+    fun getUrl(imgPath: String, imageSize: ImageSize): String =
         "$IMAGE_BASE_URL${imageSize.size}$imgPath"
 }
