@@ -82,7 +82,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-//Dagger - Hilt
+    //Dagger - Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:1.2.0")
@@ -136,9 +136,13 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:$archCoreVersion")
     androidTestImplementation("androidx.arch.core:core-testing:$archCoreVersion")
 
-    // paging
+  // Paging
+
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
     implementation("androidx.paging:paging-compose:3.2.1")
-    implementation("androidx.paging:paging-runtime-ktx:3.2.1") // Replace with the latest version
+    // navigation
+    implementation ("androidx.room:room-paging:2.6.1")
+    implementation ("androidx.room:room-runtime:2.6.1")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
@@ -151,7 +155,4 @@ dependencies {
 
     androidTestImplementation ("androidx.paging:paging-testing:3.2.1")
     testImplementation ("androidx.paging:paging-testing:3.2.1")
-
-
 }
-

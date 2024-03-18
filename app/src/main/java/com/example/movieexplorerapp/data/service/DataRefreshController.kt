@@ -1,5 +1,8 @@
 package com.example.movieexplorerapp.data.service
 
+import com.example.movieexplorerapp.data.local.dao.MovieDao
+import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
+import com.example.movieexplorerapp.data.local.repository.LocalMovieRepoImp
 import com.example.movieexplorerapp.data.model.LastFetchTime
 import javax.inject.Inject
 
@@ -7,7 +10,7 @@ import javax.inject.Inject
  * Manages data fetching intervals and determines when to fetch movies from a remote server.
  */
 
-class DataRefreshController @Inject constructor() {
+class DataRefreshController @Inject constructor(val movieDao: MovieDao) {
     // assigns the default fetch interval
     private var fetchInterval = DEFAULT_FETCH_INTERVAL
     private var userTriggeredRefresh = false
@@ -32,8 +35,9 @@ class DataRefreshController @Inject constructor() {
      * @param lastFetchTime Custom object storing the last fetch time as a Long value.
      * @return True if it's time to fetch movies from the remote server, false otherwise.
      */
-    fun shouldFetchMovies(lastFetchTime: LastFetchTime): Boolean {
-        if (lastFetchTime.value == null || userTriggeredRefresh) {
+    suspend fun shouldFetchMovies(lastFetchTime: LastFetchTime): Boolean {
+        val totalMovieCount = movieDao.countMovieEntries()
+        if (lastFetchTime.value == null || userTriggeredRefresh || totalMovieCount == 0) {
             return true
         }
         val currentTime = System.currentTimeMillis()

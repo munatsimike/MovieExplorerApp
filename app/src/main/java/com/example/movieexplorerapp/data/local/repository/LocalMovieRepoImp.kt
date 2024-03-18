@@ -4,7 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.movieexplorerapp.data.local.dao.BaseMovieDao
 import com.example.movieexplorerapp.data.local.dao.MoviePaginationMetadataDao
 import com.example.movieexplorerapp.data.local.database.LocalMovieDatabase
 import com.example.movieexplorerapp.data.model.MovieCategory
@@ -23,7 +22,6 @@ import javax.inject.Inject
  *  The class takes moviesDao as a parameter, which is injected by Hilt.
  */
 class LocalMovieRepoImp @Inject constructor(
-    private val movieDao: BaseMovieDao,
     private val remoteMovieRepoImp: RemoteMovieRepoImp,
     private val database: LocalMovieDatabase,
     private val paginationMetadataDao: MoviePaginationMetadataDao,
@@ -32,13 +30,13 @@ class LocalMovieRepoImp @Inject constructor(
     private val dataCleanUpManager: DataCleanUpManager,
 ) : LocalMovieRepository {
     override suspend fun insertMovies(movies: List<MovieEntity>) {
-        movieDao.insertMovies(movies)
+        database.movieDao.insertMovies(movies)
     }
 
     @OptIn(ExperimentalPagingApi::class)
     override fun fetchMovies(category: MovieCategory): Flow<PagingData<MovieEntity>> {
         return Pager(
-            config = PagingConfig(pageSize = 5),
+            config = PagingConfig(pageSize = 15, initialLoadSize = 20, prefetchDistance = 5),
             remoteMediator = MyRemoteMediator(
                 database,
                 remoteMovieRepoImp,
@@ -48,11 +46,11 @@ class LocalMovieRepoImp @Inject constructor(
                 lastFetchTimeProvider,
                 dataCleanUpManager,
             ),
-            pagingSourceFactory = { movieDao.fetchMovies(category) }
+            pagingSourceFactory = { database.movieDao.fetchMovies(category) }
         ).flow
     }
 
     override suspend fun deleteMovies(category: MovieCategory) {
-        movieDao.deleteMoviesByCategory(category)
+        database.movieDao.deleteMoviesByCategory(category)
     }
 }

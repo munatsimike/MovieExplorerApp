@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -54,7 +53,7 @@ object Main {
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            //  DiscoverMovie(movies = discover)
+            //DiscoverMovie(movies = discover)
 
             LazyRowMovie(movies = nowPlaying)
             LazyRowMovie(movies = topRated)
@@ -96,7 +95,8 @@ object Main {
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            items(movies.itemSnapshotList) { movie ->
+            items(movies.itemCount) { index ->
+                val movie = movies[index]
                 if (movie != null) {
                     LazyRowMovieItem(movie, itemWidth) {
                         itemsClickedStates[movie.id] = true
@@ -167,24 +167,6 @@ object Main {
         }
     }
 
-
-    @Composable
-    private fun DiscoverMovie(movies: LazyPagingItems<MovieEntity>) {
-        LazyRow(
-            modifier = Modifier.fillMaxHeight(0.25f),
-        ) {
-            items(movies.itemSnapshotList) { movie ->
-                if (movie != null) {
-                    DiscoverMovieListItem(movie = movie)
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun DiscoverMovieListItem(movie: Movie, modifier: Modifier = Modifier) {
-
-    }
 
     @Composable
     private fun LoadingItem() {

@@ -9,7 +9,7 @@ import javax.inject.Inject
  */
 class DataCleanUpManager @Inject constructor(private val movieDao: MovieDao) {
     // The maximum number of movies to keep in the database.
-    private var movieCountThreshold = 150
+    private var movieCountThreshold = 350
 
     //Updates the threshold of movies to keep in the database.
     fun setMoviesToKeep(moviesToKeep: Int) {
