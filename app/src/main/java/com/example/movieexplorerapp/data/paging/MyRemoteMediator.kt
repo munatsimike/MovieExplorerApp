@@ -1,6 +1,5 @@
 package com.example.movieexplorerapp.data.paging
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -59,8 +58,7 @@ class MyRemoteMediator @Inject constructor(
                     if (pagingMataData.size == 1) {
                         val metaData = pagingMataData[0]
                         if (metaData.page <= metaData.totalPages) {
-                            Log.d("appending", metaData.page.toString())
-                            metaData.page+1
+                            metaData.page + 1
                         } else {
                             return MediatorResult.Success(endOfPaginationReached = true)
                         }
@@ -74,7 +72,7 @@ class MyRemoteMediator @Inject constructor(
             //fetch movies from API
             val response = getMovies(movieCategory, page)
             // Save movies to room
-           saveMovies(response, loadType)
+            saveMovies(response, loadType)
             //save fetch time. it will be used to determine the for next to fetch data to avoid fetching data everytime the app is opened
             lastFetchTimeProvider.saveLastFetchTime(LastFetchTime(System.currentTimeMillis()))
             //clean up excess movies from db if threshold has been exceed

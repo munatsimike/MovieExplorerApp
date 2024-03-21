@@ -64,7 +64,7 @@ object Detail {
 
             ) {
                 // loads movie poster as background
-                NetworkImageLoader(imageUrl = movie.posterPath, Modifier.fillMaxSize())
+                movie.posterPath?.let { NetworkImageLoader(imageUrl = it, Modifier.fillMaxSize()) }
                // box contains code to display movie overview title, release date etc
                 Box(
                     Modifier
@@ -80,13 +80,15 @@ object Detail {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                         // display movie poster on the detail section
-                            NetworkImageLoader(
-                                imageUrl = movie.posterPath,
-                                imageSize = ImageSize.ExtraSmall,
-                                modifier = Modifier
-                                    .size(100.dp)
-                                    .clip(RoundedCornerShape(topStart = 20.dp, bottomEnd = 20.dp))
-                            )
+                            movie.posterPath?.let {
+                                NetworkImageLoader(
+                                    imageUrl = it,
+                                    imageSize = ImageSize.ExtraSmall,
+                                    modifier = Modifier
+                                        .size(100.dp)
+                                        .clip(RoundedCornerShape(topStart = 20.dp, bottomEnd = 20.dp))
+                                )
+                            }
                             // display title and release date
                             Text(
                                 text = movie.title + " " + "(" + (movie.releaseDate.substringBefore("-") + ")"),

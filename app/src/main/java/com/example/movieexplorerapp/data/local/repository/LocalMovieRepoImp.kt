@@ -36,7 +36,7 @@ class LocalMovieRepoImp @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override fun fetchMovies(category: MovieCategory): Flow<PagingData<MovieEntity>> {
         return Pager(
-            config = PagingConfig(pageSize = 15, initialLoadSize = 20, prefetchDistance = 5),
+            config = PagingConfig(pageSize = 20, initialLoadSize = 40, prefetchDistance = 5),
             remoteMediator = MyRemoteMediator(
                 database,
                 remoteMovieRepoImp,

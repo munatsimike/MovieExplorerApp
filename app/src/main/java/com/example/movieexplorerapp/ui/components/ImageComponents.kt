@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import coil.compose.rememberAsyncImagePainter
 import com.example.movieexplorerapp.R
@@ -22,9 +23,13 @@ fun NetworkImageLoader(
     imageSize: ImageSize = ImageSize.ExtraLarge
 ) {
     Image(
-        painter = rememberAsyncImagePainter(model = ImageUrlBuilder.getUrl(imageUrl, imageSize)),
+        painter = rememberAsyncImagePainter(
+            model = ImageUrlBuilder.getUrl(imageUrl, imageSize), placeholder = painterResource(
+                id = R.drawable.placeholder_image
+            ), error = painterResource(id = R.drawable.error_image)
+        ),
         contentDescription = imageDescription,
         contentScale = ContentScale.Crop,
-        modifier = modifier
+        modifier = modifier,
     )
 }
